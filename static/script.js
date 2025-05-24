@@ -63,19 +63,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const constraints = {
                 video: {
                     width: { ideal: 1280 },
-                    height: { ideal: 720 }
+                    height: { ideal: 720 },
+                    facingMode: facingMode || 'user'
                 }
             };
 
             if (deviceId) {
                 constraints.video.deviceId = { exact: deviceId };
-            } else if (facingMode) {
-                constraints.video.facingMode = { exact: facingMode };
             }
 
             stream = await navigator.mediaDevices.getUserMedia(constraints);
             video.srcObject = stream;
-            await video.play(); // Ensure video starts playing
+            
+            // Wait for video to be ready
+            await new Promise((resolve) => {
+                video.onloadedmetadata = () => {
+                    video.play()
+                        .then(() => {
+                            logger.info('Video started playing');
+                            resolve();
+                        })
+                        .catch(err => {
+                            logger.error('Error playing video', err);
+                            resolve(); // Resolve anyway to continue
+                        });
+                };
+            });
+
             logger.info('Camera access granted');
 
             // Update current facing mode based on the active track settings
@@ -85,7 +99,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (err) {
             logger.error('Error accessing camera', err);
-            alert('Error accessing camera. Please make sure you have granted camera permissions and try again.');
+            if (err.name === 'NotAllowedError') {
+                alert('Camera access was denied. Please allow camera access and refresh the page.');
+            } else if (err.name === 'NotFoundError') {
+                alert('No camera found. Please connect a camera and refresh the page.');
+            } else if (err.name === 'NotReadableError') {
+                alert('Camera is in use by another application. Please close other applications using the camera and refresh the page.');
+            } else {
+                alert('Error accessing camera: ' + err.message + '. Please refresh the page and try again.');
+            }
+            
             // Attempt to switch facing mode if the current one failed
             if (facingMode && (err.name === 'OverconstrainedError' || err.name === 'NotFoundError')) {
                 logger.warn(`Attempting to switch facing mode after error: ${err.name}`);
@@ -99,7 +122,12 @@ document.addEventListener('DOMContentLoaded', function() {
     async function detectCameras() {
         try {
             // Request permission first with a broad constraint
-            await navigator.mediaDevices.getUserMedia({ video: true });
+            await navigator.mediaDevices.getUserMedia({ 
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                }
+            });
 
             const devices = await navigator.mediaDevices.enumerateDevices();
             availableCameraDevices = devices.filter(device => device.kind === 'videoinput');
@@ -128,14 +156,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentCameraIndex = 0;
                 await startCamera(availableCameraDevices[currentCameraIndex].deviceId);
             } else {
-                await startCamera();
+                await startCamera(null, 'user');
             }
 
         } catch (err) {
             logger.error('Error enumerating devices or starting default camera', err);
             switchCameraBtn.style.display = 'none';
-            if (err.name === 'NotAllowedError' || err.name === 'NotFoundError') {
-                alert('Camera access denied or no cameras found. Please check permissions and refresh the page.');
+            if (err.name === 'NotAllowedError') {
+                alert('Camera access was denied. Please allow camera access and refresh the page.');
+            } else if (err.name === 'NotFoundError') {
+                alert('No camera found. Please connect a camera and refresh the page.');
+            } else {
+                alert('Error accessing camera: ' + err.message + '. Please refresh the page and try again.');
             }
         }
     }
