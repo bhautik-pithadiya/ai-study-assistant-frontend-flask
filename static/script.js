@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         cameraBtn.classList.remove('btn-secondary');
         chatBtn.classList.add('btn-secondary');
         chatBtn.classList.remove('btn-primary');
+        // Initialize camera when switching to camera mode
+        detectCameras();
     });
 
     chatBtn.addEventListener('click', () => {
@@ -58,19 +60,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         try {
             logger.info(`Requesting camera access with deviceId: ${deviceId}, facingMode: ${facingMode}`);
-            const constraints = { video: {} };
+            const constraints = {
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                }
+            };
 
             if (deviceId) {
                 constraints.video.deviceId = { exact: deviceId };
             } else if (facingMode) {
-                 constraints.video.facingMode = { exact: facingMode };
-            } else {
-                 // Default constraints if no deviceId or facingMode is provided
-                 constraints.video = true;
+                constraints.video.facingMode = { exact: facingMode };
             }
 
             stream = await navigator.mediaDevices.getUserMedia(constraints);
             video.srcObject = stream;
+            await video.play(); // Ensure video starts playing
             logger.info('Camera access granted');
 
             // Update current facing mode based on the active track settings
@@ -80,12 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (err) {
             logger.error('Error accessing camera', err);
-            alert('Error accessing camera. Please make sure you have granted camera permissions.');
-            // Attempt to switch facing mode if the current one failed (e.g., requested environment but only user is available)
+            alert('Error accessing camera. Please make sure you have granted camera permissions and try again.');
+            // Attempt to switch facing mode if the current one failed
             if (facingMode && (err.name === 'OverconstrainedError' || err.name === 'NotFoundError')) {
-                 logger.warn(`Attempting to switch facing mode after error: ${err.name}`);
-                 const nextFacingMode = facingMode === 'user' ? 'environment' : 'user';
-                 startCamera(null, nextFacingMode); // Try the other facing mode
+                logger.warn(`Attempting to switch facing mode after error: ${err.name}`);
+                const nextFacingMode = facingMode === 'user' ? 'environment' : 'user';
+                startCamera(null, nextFacingMode);
             }
         }
     }
@@ -94,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function detectCameras() {
         try {
             // Request permission first with a broad constraint
-             await navigator.mediaDevices.getUserMedia({ video: true });
+            await navigator.mediaDevices.getUserMedia({ video: true });
 
             const devices = await navigator.mediaDevices.enumerateDevices();
             availableCameraDevices = devices.filter(device => device.kind === 'videoinput');
@@ -102,37 +107,41 @@ document.addEventListener('DOMContentLoaded', function() {
             if (availableCameraDevices.length > 1) {
                 switchCameraBtn.style.display = 'inline-block';
             } else {
-                 switchCameraBtn.style.display = 'none';
+                switchCameraBtn.style.display = 'none';
             }
 
-             // Try to start with the user-facing camera if available, otherwise the first device
-             const userCamera = availableCameraDevices.find(device => device.label.toLowerCase().includes('front') || device.label.toLowerCase().includes('user'));
-             const environmentCamera = availableCameraDevices.find(device => device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('environment'));
+            // Try to start with the user-facing camera if available, otherwise the first device
+            const userCamera = availableCameraDevices.find(device => 
+                device.label.toLowerCase().includes('front') || 
+                device.label.toLowerCase().includes('user'));
+            const environmentCamera = availableCameraDevices.find(device => 
+                device.label.toLowerCase().includes('back') || 
+                device.label.toLowerCase().includes('environment'));
 
-             if (userCamera) {
-                 currentCameraIndex = availableCameraDevices.indexOf(userCamera);
-                 startCamera(userCamera.deviceId, 'user');
-             } else if (environmentCamera) {
-                  currentCameraIndex = availableCameraDevices.indexOf(environmentCamera);
-                  startCamera(environmentCamera.deviceId, 'environment');
-             } else if (availableCameraDevices.length > 0) {
-                 // Fallback to the first device if facing mode cannot be inferred
-                 currentCameraIndex = 0;
-                 startCamera(availableCameraDevices[currentCameraIndex].deviceId);
-             } else {
-                 // Fallback to default constraints if no devices found
-                 startCamera();
-             }
+            if (userCamera) {
+                currentCameraIndex = availableCameraDevices.indexOf(userCamera);
+                await startCamera(userCamera.deviceId, 'user');
+            } else if (environmentCamera) {
+                currentCameraIndex = availableCameraDevices.indexOf(environmentCamera);
+                await startCamera(environmentCamera.deviceId, 'environment');
+            } else if (availableCameraDevices.length > 0) {
+                currentCameraIndex = 0;
+                await startCamera(availableCameraDevices[currentCameraIndex].deviceId);
+            } else {
+                await startCamera();
+            }
 
         } catch (err) {
             logger.error('Error enumerating devices or starting default camera', err);
             switchCameraBtn.style.display = 'none';
-            // If initial broad permission request failed, alert the user
             if (err.name === 'NotAllowedError' || err.name === 'NotFoundError') {
-                 alert('Camera access denied or no cameras found. Please check permissions.');
+                alert('Camera access denied or no cameras found. Please check permissions and refresh the page.');
             }
         }
     }
+
+    // Initialize camera when the page loads
+    detectCameras();
 
     // Modify switch camera button logic to cycle through devices AND try toggling facing mode
     switchCameraBtn.addEventListener('click', () => {
@@ -154,9 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         logger.info(`Attempting to switch to camera: ${nextCamera.label || nextCamera.deviceId} with preferred facing mode: ${preferredFacingMode}`);
         startCamera(nextCamera.deviceId, preferredFacingMode);
     });
-
-    // Call detectCameras on startup
-    detectCameras();
 
     // Capture image
     captureBtn.addEventListener('click', () => {
