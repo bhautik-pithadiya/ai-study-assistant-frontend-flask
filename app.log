@@ -1,0 +1,788 @@
+2025-05-24 07:37:32,162 - INFO - Starting Flask application
+2025-05-24 07:37:32,180 - WARNING -  * Debugger is active!
+2025-05-24 07:37:32,181 - INFO -  * Debugger PIN: 940-980-902
+2025-05-24 07:37:32,187 - INFO - Received image upload request
+2025-05-24 07:37:32,188 - INFO - Received image upload request
+2025-05-24 07:37:32,189 - INFO - Received image upload request
+2025-05-24 07:37:32,190 - INFO - Successfully decoded base64 image
+2025-05-24 07:37:32,190 - INFO - Successfully decoded base64 image
+2025-05-24 07:37:32,191 - INFO - Received image upload request
+2025-05-24 07:37:32,192 - INFO - Successfully decoded base64 image
+2025-05-24 07:37:32,193 - INFO - Sending image to OCR endpoint
+2025-05-24 07:37:32,195 - INFO - Sending image to OCR endpoint
+2025-05-24 07:37:32,196 - INFO - Received image upload request
+2025-05-24 07:37:32,198 - INFO - Received image upload request
+2025-05-24 07:37:32,200 - INFO - Received image upload request
+2025-05-24 07:37:32,201 - INFO - Sending image to OCR endpoint
+2025-05-24 07:37:32,202 - INFO - Successfully decoded base64 image
+2025-05-24 07:37:32,207 - INFO - Successfully decoded base64 image
+2025-05-24 07:37:32,208 - INFO - Successfully decoded base64 image
+2025-05-24 07:37:32,212 - INFO - Successfully decoded base64 image
+2025-05-24 07:37:32,213 - INFO - Sending image to OCR endpoint
+2025-05-24 07:37:32,217 - INFO - Sending image to OCR endpoint
+2025-05-24 07:37:32,217 - INFO - Sending image to OCR endpoint
+2025-05-24 07:37:32,218 - INFO - Sending image to OCR endpoint
+2025-05-24 07:38:07,316 - INFO - Homepage accessed
+2025-05-24 07:38:07,322 - INFO - 127.0.0.1 - - [24/May/2025 07:38:07] "GET / HTTP/1.1" 200 -
+2025-05-24 07:38:07,523 - INFO - 127.0.0.1 - - [24/May/2025 07:38:07] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 07:38:07,524 - INFO - 127.0.0.1 - - [24/May/2025 07:38:07] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 07:38:07,707 - INFO - 127.0.0.1 - - [24/May/2025 07:38:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 07:38:22,168 - INFO - Received image upload request
+2025-05-24 07:38:22,170 - INFO - Successfully decoded base64 image
+2025-05-24 07:38:22,170 - INFO - Sending image to OCR endpoint
+2025-05-24 07:39:47,982 - ERROR - Error processing request: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b498df00310>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 110] Connection timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPConnection object at 0x7b498df00310>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b498df00310>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py", line 52, in upload_image
+    ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b498df00310>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+2025-05-24 07:39:47,983 - ERROR - Error processing request: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d3070>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 110] Connection timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPConnection object at 0x7b499e1d3070>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d3070>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py", line 52, in upload_image
+    ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d3070>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+2025-05-24 07:39:47,984 - ERROR - Error processing request: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1e70>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 110] Connection timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPConnection object at 0x7b499e1d1e70>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1e70>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py", line 52, in upload_image
+    ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1e70>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+2025-05-24 07:39:47,985 - ERROR - Error processing request: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d2740>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 110] Connection timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPConnection object at 0x7b499e1d2740>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d2740>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py", line 52, in upload_image
+    ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d2740>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+2025-05-24 07:39:47,986 - ERROR - Error processing request: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d39a0>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 110] Connection timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPConnection object at 0x7b499e1d39a0>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d39a0>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py", line 52, in upload_image
+    ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d39a0>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+2025-05-24 07:39:47,987 - ERROR - Error processing request: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1690>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 110] Connection timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPConnection object at 0x7b499e1d1690>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1690>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py", line 52, in upload_image
+    ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1690>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+2025-05-24 07:39:47,987 - ERROR - Error processing request: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1a20>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 110] Connection timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPConnection object at 0x7b499e1d1a20>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1a20>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py", line 52, in upload_image
+    ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.255.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7b499e1d1a20>, 'Connection to 35.255.50.125 timed out. (connect timeout=None)'))
+2025-05-24 07:39:47,995 - INFO - 127.0.0.1 - - [24/May/2025 07:39:47] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 07:39:47,997 - INFO - 127.0.0.1 - - [24/May/2025 07:39:47] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 07:39:48,000 - INFO - 127.0.0.1 - - [24/May/2025 07:39:48] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 07:39:48,004 - INFO - 127.0.0.1 - - [24/May/2025 07:39:48] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 07:39:48,008 - INFO - 127.0.0.1 - - [24/May/2025 07:39:48] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 07:39:48,011 - INFO - 127.0.0.1 - - [24/May/2025 07:39:48] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 07:39:48,021 - INFO - 127.0.0.1 - - [24/May/2025 07:39:48] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 07:40:35,344 - INFO -  * Detected change in '/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py', reloading
+2025-05-24 07:40:35,583 - INFO - Starting Flask application
+2025-05-24 07:40:35,595 - WARNING -  * Debugger is active!
+2025-05-24 07:40:35,595 - INFO -  * Debugger PIN: 940-980-902
+2025-05-24 07:40:35,600 - INFO - Received image upload request
+2025-05-24 07:40:35,601 - INFO - Successfully decoded base64 image
+2025-05-24 07:40:35,601 - INFO - Sending image to OCR endpoint
+2025-05-24 07:40:37,381 - INFO - OCR text extracted: 38 Exercises
+->
+You
+Today, 1:59 am
+D
+var x = 5
+Exercise
+What is a correct way to declare a Python va...
+2025-05-24 07:40:37,382 - INFO - Sending OCR text to answer endpoint
+2025-05-24 07:40:39,473 - INFO - Answer received: x = 5...
+2025-05-24 07:40:39,475 - INFO - 127.0.0.1 - - [24/May/2025 07:40:39] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 07:41:08,986 - INFO - 127.0.0.1 - - [24/May/2025 07:41:08] "[33mPOST /answer_mcq/HI HTTP/1.1[0m" 404 -
+2025-05-24 07:43:03,446 - INFO -  * Detected change in '/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py', reloading
+2025-05-24 07:43:03,692 - INFO - Starting Flask application
+2025-05-24 07:43:03,703 - WARNING -  * Debugger is active!
+2025-05-24 07:43:03,703 - INFO -  * Debugger PIN: 940-980-902
+2025-05-24 07:43:06,491 - INFO - Homepage accessed
+2025-05-24 07:43:06,496 - INFO - 127.0.0.1 - - [24/May/2025 07:43:06] "GET / HTTP/1.1" 200 -
+2025-05-24 07:43:06,602 - INFO - 127.0.0.1 - - [24/May/2025 07:43:06] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 07:43:06,603 - INFO - 127.0.0.1 - - [24/May/2025 07:43:06] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 07:43:06,728 - INFO - 127.0.0.1 - - [24/May/2025 07:43:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 07:43:43,884 - INFO - Received image upload request
+2025-05-24 07:43:43,886 - INFO - Successfully decoded base64 image
+2025-05-24 07:43:43,887 - INFO - Sending image to OCR endpoint
+2025-05-24 07:43:44,533 - INFO - Received image upload request
+2025-05-24 07:43:44,534 - INFO - Successfully decoded base64 image
+2025-05-24 07:43:44,535 - INFO - Sending image to OCR endpoint
+2025-05-24 07:43:45,027 - INFO - OCR text extracted: Exercises
+var x = 5
+Exercise
+What is a correct way to declare a Python variable?
+Sx - 3...
+2025-05-24 07:43:45,027 - INFO - Sending OCR text to answer endpoint
+2025-05-24 07:43:45,641 - INFO - OCR text extracted: Exercises
+var x = 5
+Exercise
+What is a correct way to declare a Python variable?
+Sx - 3...
+2025-05-24 07:43:45,642 - INFO - Sending OCR text to answer endpoint
+2025-05-24 07:43:47,073 - INFO - Answer received: variable_name = value...
+2025-05-24 07:43:47,075 - INFO - 127.0.0.1 - - [24/May/2025 07:43:47] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 07:43:49,225 - INFO - Answer received: Assigning a value to the variable name using the assignment operator (=), for example: `variable_nam...
+2025-05-24 07:43:49,227 - INFO - 127.0.0.1 - - [24/May/2025 07:43:49] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 07:45:09,551 - INFO - Homepage accessed
+2025-05-24 07:45:09,552 - INFO - 127.0.0.1 - - [24/May/2025 07:45:09] "GET / HTTP/1.1" 200 -
+2025-05-24 07:45:09,664 - INFO - 127.0.0.1 - - [24/May/2025 07:45:09] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 07:45:09,666 - INFO - 127.0.0.1 - - [24/May/2025 07:45:09] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 07:45:09,787 - INFO - 127.0.0.1 - - [24/May/2025 07:45:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 07:46:44,795 - INFO - Homepage accessed
+2025-05-24 07:46:44,796 - INFO - 127.0.0.1 - - [24/May/2025 07:46:44] "GET / HTTP/1.1" 200 -
+2025-05-24 07:46:44,868 - INFO - 127.0.0.1 - - [24/May/2025 07:46:44] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 07:46:44,870 - INFO - 127.0.0.1 - - [24/May/2025 07:46:44] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 07:46:44,990 - INFO - 127.0.0.1 - - [24/May/2025 07:46:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 07:48:15,965 - INFO - Received image upload request
+2025-05-24 07:48:15,968 - INFO - Successfully decoded base64 image
+2025-05-24 07:48:15,968 - INFO - Sending image to OCR endpoint
+2025-05-24 07:48:17,665 - INFO - OCR text extracted: vercise
+Exercise
+7
+What is a correct way to declare a Python variable?
+var x = 5
+x = 5
+● $x = 5
+x=5...
+2025-05-24 07:48:17,665 - INFO - Sending OCR text to answer endpoint
+2025-05-24 07:48:21,240 - INFO - Answer received: Assign a value to a variable name using the assignment operator (`=`)....
+2025-05-24 07:48:21,241 - INFO - 127.0.0.1 - - [24/May/2025 07:48:21] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 07:48:21,512 - INFO - Received image upload request
+2025-05-24 07:48:21,514 - INFO - Successfully decoded base64 image
+2025-05-24 07:48:21,514 - INFO - Sending image to OCR endpoint
+2025-05-24 07:48:23,187 - INFO - OCR text extracted: vercise
+Exercise
+7
+What is a correct way to declare a Python variable?
+var x = 5
+x = 5
+● $x = 5
+x=5...
+2025-05-24 07:48:23,187 - INFO - Sending OCR text to answer endpoint
+2025-05-24 07:48:25,603 - INFO - Answer received: my_variable = 10...
+2025-05-24 07:48:25,605 - INFO - 127.0.0.1 - - [24/May/2025 07:48:25] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 07:48:53,554 - INFO - Received image upload request
+2025-05-24 07:48:53,556 - INFO - Successfully decoded base64 image
+2025-05-24 07:48:53,557 - INFO - Sending image to OCR endpoint
+2025-05-24 07:48:54,787 - INFO - OCR text extracted: What is a correct way to declare a Python variable?
+var x = 5
+● 4x = 5
+● $x = 5
+x=5...
+2025-05-24 07:48:54,788 - INFO - Sending OCR text to answer endpoint
+2025-05-24 07:48:57,039 - INFO - Answer received: `variable_name = value`...
+2025-05-24 07:48:57,040 - INFO - 127.0.0.1 - - [24/May/2025 07:48:57] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 07:56:02,897 - INFO - Received image upload request
+2025-05-24 07:56:02,898 - INFO - Successfully decoded base64 image
+2025-05-24 07:56:02,898 - INFO - Sending image to OCR endpoint
+2025-05-24 07:56:05,065 - INFO - OCR text extracted: ...
+2025-05-24 07:56:05,066 - INFO - Sending OCR text to answer endpoint
+2025-05-24 07:56:05,984 - ERROR - Answer processing failed with status code: 404
+2025-05-24 07:56:05,986 - INFO - 127.0.0.1 - - [24/May/2025 07:56:05] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 07:57:48,782 - INFO - Homepage accessed
+2025-05-24 07:57:48,783 - INFO - 127.0.0.1 - - [24/May/2025 07:57:48] "GET / HTTP/1.1" 200 -
+2025-05-24 07:57:48,882 - INFO - 127.0.0.1 - - [24/May/2025 07:57:48] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 07:57:48,884 - INFO - 127.0.0.1 - - [24/May/2025 07:57:48] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:01:16,486 - INFO - Homepage accessed
+2025-05-24 08:01:16,490 - INFO - 127.0.0.1 - - [24/May/2025 08:01:16] "GET / HTTP/1.1" 200 -
+2025-05-24 08:01:16,560 - INFO - 127.0.0.1 - - [24/May/2025 08:01:16] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:01:16,561 - INFO - 127.0.0.1 - - [24/May/2025 08:01:16] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:01:16,773 - INFO - 127.0.0.1 - - [24/May/2025 08:01:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:01:21,238 - INFO - Received image upload request
+2025-05-24 08:01:21,241 - INFO - Successfully decoded base64 image
+2025-05-24 08:01:21,241 - INFO - Sending image to OCR endpoint
+2025-05-24 08:01:22,591 - INFO - OCR text extracted: ...
+2025-05-24 08:01:22,592 - INFO - Sending OCR text to answer endpoint
+2025-05-24 08:01:23,207 - ERROR - Answer processing failed with status code: 404
+2025-05-24 08:01:23,209 - INFO - 127.0.0.1 - - [24/May/2025 08:01:23] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 08:01:27,085 - INFO - Homepage accessed
+2025-05-24 08:01:27,086 - INFO - 127.0.0.1 - - [24/May/2025 08:01:27] "GET / HTTP/1.1" 200 -
+2025-05-24 08:01:27,159 - INFO - 127.0.0.1 - - [24/May/2025 08:01:27] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:01:27,159 - INFO - 127.0.0.1 - - [24/May/2025 08:01:27] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:01:27,300 - INFO - 127.0.0.1 - - [24/May/2025 08:01:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:02:33,822 - INFO - Homepage accessed
+2025-05-24 08:02:33,826 - INFO - 127.0.0.1 - - [24/May/2025 08:02:33] "GET / HTTP/1.1" 200 -
+2025-05-24 08:02:33,909 - INFO - 127.0.0.1 - - [24/May/2025 08:02:33] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:02:33,910 - INFO - 127.0.0.1 - - [24/May/2025 08:02:33] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:02:34,034 - INFO - 127.0.0.1 - - [24/May/2025 08:02:34] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:03:33,284 - INFO - Homepage accessed
+2025-05-24 08:03:33,285 - INFO - 127.0.0.1 - - [24/May/2025 08:03:33] "GET / HTTP/1.1" 200 -
+2025-05-24 08:03:33,349 - INFO - 127.0.0.1 - - [24/May/2025 08:03:33] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:03:33,351 - INFO - 127.0.0.1 - - [24/May/2025 08:03:33] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:03:33,473 - INFO - 127.0.0.1 - - [24/May/2025 08:03:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:05:14,492 - INFO - Homepage accessed
+2025-05-24 08:05:14,493 - INFO - 127.0.0.1 - - [24/May/2025 08:05:14] "GET / HTTP/1.1" 200 -
+2025-05-24 08:05:14,599 - INFO - 127.0.0.1 - - [24/May/2025 08:05:14] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:05:14,601 - INFO - 127.0.0.1 - - [24/May/2025 08:05:14] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:05:14,756 - INFO - 127.0.0.1 - - [24/May/2025 08:05:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:08:01,740 - INFO - Homepage accessed
+2025-05-24 08:08:01,741 - INFO - 127.0.0.1 - - [24/May/2025 08:08:01] "GET / HTTP/1.1" 200 -
+2025-05-24 08:08:01,810 - INFO - 127.0.0.1 - - [24/May/2025 08:08:01] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:08:01,810 - INFO - 127.0.0.1 - - [24/May/2025 08:08:01] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:08:01,956 - INFO - 127.0.0.1 - - [24/May/2025 08:08:01] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:11:06,197 - INFO - Homepage accessed
+2025-05-24 08:11:06,198 - INFO - 127.0.0.1 - - [24/May/2025 08:11:06] "GET / HTTP/1.1" 200 -
+2025-05-24 08:11:06,263 - INFO - 127.0.0.1 - - [24/May/2025 08:11:06] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:11:06,265 - INFO - 127.0.0.1 - - [24/May/2025 08:11:06] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:11:06,396 - INFO - 127.0.0.1 - - [24/May/2025 08:11:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:15:06,942 - INFO - Homepage accessed
+2025-05-24 08:15:06,943 - INFO - 127.0.0.1 - - [24/May/2025 08:15:06] "GET / HTTP/1.1" 200 -
+2025-05-24 08:15:07,012 - INFO - 127.0.0.1 - - [24/May/2025 08:15:07] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:15:07,014 - INFO - 127.0.0.1 - - [24/May/2025 08:15:07] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:15:07,146 - INFO - 127.0.0.1 - - [24/May/2025 08:15:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:19:27,151 - INFO - Homepage accessed
+2025-05-24 08:19:27,152 - INFO - 127.0.0.1 - - [24/May/2025 08:19:27] "GET / HTTP/1.1" 200 -
+2025-05-24 08:19:27,227 - INFO - 127.0.0.1 - - [24/May/2025 08:19:27] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:19:27,229 - INFO - 127.0.0.1 - - [24/May/2025 08:19:27] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:19:27,369 - INFO - 127.0.0.1 - - [24/May/2025 08:19:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:28:31,623 - INFO - Homepage accessed
+2025-05-24 08:28:31,624 - INFO - 127.0.0.1 - - [24/May/2025 08:28:31] "GET / HTTP/1.1" 200 -
+2025-05-24 08:28:31,726 - INFO - 127.0.0.1 - - [24/May/2025 08:28:31] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:28:31,734 - INFO - 127.0.0.1 - - [24/May/2025 08:28:31] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:28:31,940 - INFO - 127.0.0.1 - - [24/May/2025 08:28:31] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:30:15,571 - INFO - Homepage accessed
+2025-05-24 08:30:15,572 - INFO - 127.0.0.1 - - [24/May/2025 08:30:15] "GET / HTTP/1.1" 200 -
+2025-05-24 08:30:15,682 - INFO - 127.0.0.1 - - [24/May/2025 08:30:15] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:30:15,685 - INFO - 127.0.0.1 - - [24/May/2025 08:30:15] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:30:15,893 - INFO - 127.0.0.1 - - [24/May/2025 08:30:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:30:53,393 - INFO - Homepage accessed
+2025-05-24 08:30:53,393 - INFO - 127.0.0.1 - - [24/May/2025 08:30:53] "GET / HTTP/1.1" 200 -
+2025-05-24 08:30:53,478 - INFO - 127.0.0.1 - - [24/May/2025 08:30:53] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 08:30:53,482 - INFO - 127.0.0.1 - - [24/May/2025 08:30:53] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:32:47,345 - INFO - Homepage accessed
+2025-05-24 08:32:47,346 - INFO - 127.0.0.1 - - [24/May/2025 08:32:47] "GET / HTTP/1.1" 200 -
+2025-05-24 08:32:47,483 - INFO - 127.0.0.1 - - [24/May/2025 08:32:47] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:32:47,486 - INFO - 127.0.0.1 - - [24/May/2025 08:32:47] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:32:47,690 - INFO - 127.0.0.1 - - [24/May/2025 08:32:47] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:33:33,563 - INFO - Homepage accessed
+2025-05-24 08:33:33,564 - INFO - 127.0.0.1 - - [24/May/2025 08:33:33] "GET / HTTP/1.1" 200 -
+2025-05-24 08:33:33,668 - INFO - 127.0.0.1 - - [24/May/2025 08:33:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 08:33:33,670 - INFO - 127.0.0.1 - - [24/May/2025 08:33:33] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:34:40,599 - INFO - Homepage accessed
+2025-05-24 08:34:40,600 - INFO - 127.0.0.1 - - [24/May/2025 08:34:40] "GET / HTTP/1.1" 200 -
+2025-05-24 08:34:40,728 - INFO - 127.0.0.1 - - [24/May/2025 08:34:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 08:34:40,731 - INFO - 127.0.0.1 - - [24/May/2025 08:34:40] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:36:19,269 - INFO - Homepage accessed
+2025-05-24 08:36:19,270 - INFO - 127.0.0.1 - - [24/May/2025 08:36:19] "GET / HTTP/1.1" 200 -
+2025-05-24 08:36:19,378 - INFO - 127.0.0.1 - - [24/May/2025 08:36:19] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:36:19,381 - INFO - 127.0.0.1 - - [24/May/2025 08:36:19] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:36:19,538 - INFO - 127.0.0.1 - - [24/May/2025 08:36:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:38:08,385 - INFO - Homepage accessed
+2025-05-24 08:38:08,386 - INFO - 127.0.0.1 - - [24/May/2025 08:38:08] "GET / HTTP/1.1" 200 -
+2025-05-24 08:38:08,502 - INFO - 127.0.0.1 - - [24/May/2025 08:38:08] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:38:08,506 - INFO - 127.0.0.1 - - [24/May/2025 08:38:08] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:38:08,651 - INFO - 127.0.0.1 - - [24/May/2025 08:38:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 08:43:33,114 - INFO - Homepage accessed
+2025-05-24 08:43:33,115 - INFO - 127.0.0.1 - - [24/May/2025 08:43:33] "GET / HTTP/1.1" 200 -
+2025-05-24 08:43:33,218 - INFO - 127.0.0.1 - - [24/May/2025 08:43:33] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 08:43:33,221 - INFO - 127.0.0.1 - - [24/May/2025 08:43:33] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 08:43:33,380 - INFO - 127.0.0.1 - - [24/May/2025 08:43:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 09:19:33,249 - INFO - Received image upload request
+2025-05-24 09:19:33,353 - INFO - Successfully decoded base64 image
+2025-05-24 09:19:33,354 - INFO - Sending image to OCR endpoint
+2025-05-24 09:19:34,436 - INFO - OCR text extracted: ...
+2025-05-24 09:19:34,437 - INFO - Sending OCR text to answer endpoint
+2025-05-24 09:19:35,002 - ERROR - Answer processing failed with status code: 404
+2025-05-24 09:19:35,012 - INFO - 127.0.0.1 - - [24/May/2025 09:19:35] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 09:38:04,007 - INFO - Received image upload request
+2025-05-24 09:38:04,020 - INFO - Successfully decoded base64 image
+2025-05-24 09:38:04,021 - INFO - Sending image to OCR endpoint
+2025-05-24 09:38:05,315 - INFO - OCR text extracted: ...
+2025-05-24 09:38:05,316 - INFO - Sending OCR text to answer endpoint
+2025-05-24 09:38:05,883 - ERROR - Answer processing failed with status code: 404
+2025-05-24 09:38:05,885 - INFO - 127.0.0.1 - - [24/May/2025 09:38:05] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 09:38:18,550 - INFO - Received image upload request
+2025-05-24 09:38:18,551 - INFO - Successfully decoded base64 image
+2025-05-24 09:38:18,551 - INFO - Sending image to OCR endpoint
+2025-05-24 09:38:19,537 - INFO - OCR text extracted: GREEN
+SCUL...
+2025-05-24 09:38:19,537 - INFO - Sending OCR text to answer endpoint
+2025-05-24 09:38:24,061 - INFO - Answer received: GREEN SCULPTURE...
+2025-05-24 09:38:24,063 - INFO - 127.0.0.1 - - [24/May/2025 09:38:24] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 09:38:37,157 - INFO - Received image upload request
+2025-05-24 09:38:37,159 - INFO - Successfully decoded base64 image
+2025-05-24 09:38:37,159 - INFO - Sending image to OCR endpoint
+2025-05-24 09:38:38,151 - INFO - OCR text extracted: SREEN
+SOUL...
+2025-05-24 09:38:38,151 - INFO - Sending OCR text to answer endpoint
+2025-05-24 09:39:07,343 - INFO - Received image upload request
+2025-05-24 09:39:07,346 - INFO - Successfully decoded base64 image
+2025-05-24 09:39:07,346 - INFO - Sending image to OCR endpoint
+2025-05-24 09:39:29,945 - INFO - Answer received: SOUL...
+2025-05-24 09:39:29,947 - INFO - 127.0.0.1 - - [24/May/2025 09:39:29] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 09:39:30,132 - INFO - OCR text extracted: L
+GREEN
+SOUL...
+2025-05-24 09:39:30,133 - INFO - Sending OCR text to answer endpoint
+2025-05-24 09:39:50,247 - INFO - Answer received: L is the first letter of GREEN and the last letter of SOUL....
+2025-05-24 09:39:50,251 - INFO - 127.0.0.1 - - [24/May/2025 09:39:50] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 09:50:21,799 - INFO - Homepage accessed
+2025-05-24 09:50:22,110 - INFO - 127.0.0.1 - - [24/May/2025 09:50:22] "GET / HTTP/1.1" 200 -
+2025-05-24 09:50:22,235 - INFO - 127.0.0.1 - - [24/May/2025 09:50:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 09:50:22,238 - INFO - 127.0.0.1 - - [24/May/2025 09:50:22] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-24 09:55:15,224 - INFO - Homepage accessed
+2025-05-24 09:55:15,225 - INFO - 127.0.0.1 - - [24/May/2025 09:55:15] "GET / HTTP/1.1" 200 -
+2025-05-24 09:55:15,304 - INFO - 127.0.0.1 - - [24/May/2025 09:55:15] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 09:55:15,309 - INFO - 127.0.0.1 - - [24/May/2025 09:55:15] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 09:55:15,433 - INFO - 127.0.0.1 - - [24/May/2025 09:55:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 09:55:41,092 - INFO - Received image upload request
+2025-05-24 09:55:41,097 - INFO - Successfully decoded base64 image
+2025-05-24 09:55:41,098 - INFO - Sending image to OCR endpoint
+2025-05-24 09:55:44,507 - INFO - OCR text extracted: ...
+2025-05-24 09:55:44,507 - INFO - Sending OCR text to answer endpoint
+2025-05-24 09:55:45,370 - ERROR - Answer processing failed with status code: 404
+2025-05-24 09:55:45,371 - INFO - 127.0.0.1 - - [24/May/2025 09:55:45] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 09:55:51,260 - INFO - Received image upload request
+2025-05-24 09:55:51,264 - INFO - Successfully decoded base64 image
+2025-05-24 09:55:51,264 - INFO - Sending image to OCR endpoint
+2025-05-24 09:55:54,486 - INFO - OCR text extracted: حقاالكم
+SR...
+2025-05-24 09:55:54,487 - INFO - Sending OCR text to answer endpoint
+2025-05-24 09:56:01,015 - INFO - Answer received: SR typically stands for Saudi Riyal.
+
+The Arabic phrase "حقاالكم" appears to be a misspelling. It mi...
+2025-05-24 09:56:01,030 - INFO - 127.0.0.1 - - [24/May/2025 09:56:01] "POST /upload_image HTTP/1.1" 200 -
+2025-05-24 09:59:07,400 - INFO - Starting Flask application
+2025-05-24 09:59:07,539 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-24 09:59:07,539 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-24 09:59:07,550 - INFO -  * Restarting with stat
+2025-05-24 09:59:07,758 - INFO - Starting Flask application
+2025-05-24 09:59:07,770 - WARNING -  * Debugger is active!
+2025-05-24 09:59:07,772 - INFO -  * Debugger PIN: 223-803-570
+2025-05-24 10:01:15,542 - INFO - 127.0.0.1 - - [24/May/2025 10:01:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 10:01:16,625 - INFO - Homepage accessed
+2025-05-24 10:01:16,647 - INFO - 127.0.0.1 - - [24/May/2025 10:01:16] "GET / HTTP/1.1" 200 -
+2025-05-24 10:01:17,271 - INFO - 127.0.0.1 - - [24/May/2025 10:01:17] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 10:01:17,314 - INFO - 127.0.0.1 - - [24/May/2025 10:01:17] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 10:05:09,435 - INFO - Homepage accessed
+2025-05-24 10:05:09,475 - INFO - 127.0.0.1 - - [24/May/2025 10:05:09] "GET / HTTP/1.1" 200 -
+2025-05-24 10:05:10,275 - INFO - 127.0.0.1 - - [24/May/2025 10:05:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 10:05:10,319 - INFO - 127.0.0.1 - - [24/May/2025 10:05:10] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 10:05:10,987 - INFO - 127.0.0.1 - - [24/May/2025 10:05:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 10:13:16,092 - INFO - Homepage accessed
+2025-05-24 10:13:16,096 - INFO - 127.0.0.1 - - [24/May/2025 10:13:16] "GET / HTTP/1.1" 200 -
+2025-05-24 10:13:16,757 - INFO - 127.0.0.1 - - [24/May/2025 10:13:16] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 10:13:16,802 - INFO - 127.0.0.1 - - [24/May/2025 10:13:16] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 10:13:38,370 - INFO - 127.0.0.1 - - [24/May/2025 10:13:38] "[33mGET /auth/postback/github?tunnel=1 HTTP/1.1[0m" 404 -
+2025-05-24 10:13:40,236 - INFO - 127.0.0.1 - - [24/May/2025 10:13:40] "[33mGET /auth/postback/github?tunnel=1 HTTP/1.1[0m" 404 -
+2025-05-24 10:13:40,927 - INFO - 127.0.0.1 - - [24/May/2025 10:13:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 10:13:44,363 - INFO - Homepage accessed
+2025-05-24 10:13:44,365 - INFO - 127.0.0.1 - - [24/May/2025 10:13:44] "GET / HTTP/1.1" 200 -
+2025-05-24 10:13:44,584 - INFO - 127.0.0.1 - - [24/May/2025 10:13:44] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-24 10:13:44,980 - INFO - 127.0.0.1 - - [24/May/2025 10:13:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 10:14:59,310 - INFO - Homepage accessed
+2025-05-24 10:14:59,313 - INFO - 127.0.0.1 - - [24/May/2025 10:14:59] "GET / HTTP/1.1" 200 -
+2025-05-24 10:14:59,986 - INFO - 127.0.0.1 - - [24/May/2025 10:14:59] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 10:15:00,031 - INFO - 127.0.0.1 - - [24/May/2025 10:15:00] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 10:17:36,206 - INFO - Homepage accessed
+2025-05-24 10:17:36,208 - INFO - 127.0.0.1 - - [24/May/2025 10:17:36] "GET / HTTP/1.1" 200 -
+2025-05-24 10:17:36,858 - INFO - 127.0.0.1 - - [24/May/2025 10:17:36] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 10:17:36,912 - INFO - 127.0.0.1 - - [24/May/2025 10:17:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 10:17:42,012 - INFO - Homepage accessed
+2025-05-24 10:17:42,014 - INFO - 127.0.0.1 - - [24/May/2025 10:17:42] "GET / HTTP/1.1" 200 -
+2025-05-24 10:17:42,584 - INFO - 127.0.0.1 - - [24/May/2025 10:17:42] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-24 10:17:42,629 - INFO - 127.0.0.1 - - [24/May/2025 10:17:42] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 10:18:17,117 - INFO - Homepage accessed
+2025-05-24 10:18:17,119 - INFO - 127.0.0.1 - - [24/May/2025 10:18:17] "GET / HTTP/1.1" 200 -
+2025-05-24 10:18:17,294 - INFO - 127.0.0.1 - - [24/May/2025 10:18:17] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 10:18:17,341 - INFO - 127.0.0.1 - - [24/May/2025 10:18:17] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-24 10:18:20,267 - INFO - Homepage accessed
+2025-05-24 10:18:20,268 - INFO - 127.0.0.1 - - [24/May/2025 10:18:20] "GET / HTTP/1.1" 200 -
+2025-05-24 10:18:21,096 - INFO - 127.0.0.1 - - [24/May/2025 10:18:21] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-24 10:18:21,138 - INFO - 127.0.0.1 - - [24/May/2025 10:18:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 10:18:27,029 - INFO - Homepage accessed
+2025-05-24 10:18:27,031 - INFO - 127.0.0.1 - - [24/May/2025 10:18:27] "GET / HTTP/1.1" 200 -
+2025-05-24 10:18:27,338 - INFO - 127.0.0.1 - - [24/May/2025 10:18:27] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-24 10:18:27,381 - INFO - 127.0.0.1 - - [24/May/2025 10:18:27] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 10:25:28,801 - INFO - Homepage accessed
+2025-05-24 10:25:28,825 - INFO - 127.0.0.1 - - [24/May/2025 10:25:28] "GET / HTTP/1.1" 200 -
+2025-05-24 10:25:29,474 - INFO - 127.0.0.1 - - [24/May/2025 10:25:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-24 10:25:29,518 - INFO - 127.0.0.1 - - [24/May/2025 10:25:29] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 16:18:05,911 - INFO - Homepage accessed
+2025-05-24 16:18:05,921 - INFO - 127.0.0.1 - - [24/May/2025 16:18:05] "GET / HTTP/1.1" 200 -
+2025-05-24 16:18:06,036 - INFO - 127.0.0.1 - - [24/May/2025 16:18:06] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 16:18:06,037 - INFO - 127.0.0.1 - - [24/May/2025 16:18:06] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 16:18:06,527 - INFO - 127.0.0.1 - - [24/May/2025 16:18:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-24 16:18:12,320 - INFO - Received image upload request
+2025-05-24 16:18:12,322 - INFO - Successfully decoded base64 image
+2025-05-24 16:18:12,322 - INFO - Sending image to OCR endpoint
+2025-05-24 16:18:13,928 - INFO - OCR text extracted: ...
+2025-05-24 16:18:13,929 - INFO - Sending OCR text to answer endpoint
+2025-05-24 16:18:14,577 - ERROR - Answer processing failed with status code: 404
+2025-05-24 16:18:14,580 - INFO - 127.0.0.1 - - [24/May/2025 16:18:14] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-24 16:19:15,536 - INFO - Homepage accessed
+2025-05-24 16:19:15,536 - INFO - 127.0.0.1 - - [24/May/2025 16:19:15] "GET / HTTP/1.1" 200 -
+2025-05-24 16:19:15,614 - INFO - 127.0.0.1 - - [24/May/2025 16:19:15] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-24 16:19:15,615 - INFO - 127.0.0.1 - - [24/May/2025 16:19:15] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-24 16:19:16,007 - INFO - 127.0.0.1 - - [24/May/2025 16:19:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
