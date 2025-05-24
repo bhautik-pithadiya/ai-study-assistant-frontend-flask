@@ -861,3 +861,325 @@ Traceback (most recent call last):
     raise ConnectTimeout(e, request=request)
 requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.225.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7d83b43a2380>, 'Connection to 35.225.50.125 timed out. (connect timeout=None)'))
 2025-05-25 01:28:46,851 - INFO - 127.0.0.1 - - [25/May/2025 01:28:46] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-25 01:35:35,341 - INFO - Starting Flask application
+2025-05-25 01:35:35,403 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-25 01:35:35,403 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 01:35:35,404 - INFO -  * Restarting with stat
+2025-05-25 01:35:35,608 - INFO - Starting Flask application
+2025-05-25 01:35:35,620 - WARNING -  * Debugger is active!
+2025-05-25 01:35:35,622 - INFO -  * Debugger PIN: 555-510-945
+2025-05-25 01:35:51,503 - INFO - Homepage accessed
+2025-05-25 01:35:51,519 - INFO - 127.0.0.1 - - [25/May/2025 01:35:51] "GET / HTTP/1.1" 200 -
+2025-05-25 01:35:51,699 - INFO - 127.0.0.1 - - [25/May/2025 01:35:51] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:35:51,702 - INFO - 127.0.0.1 - - [25/May/2025 01:35:51] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 01:35:51,902 - INFO - 127.0.0.1 - - [25/May/2025 01:35:51] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:36:35,167 - INFO - Received image upload request
+2025-05-25 01:36:35,177 - INFO - Successfully decoded base64 image
+2025-05-25 01:36:35,177 - INFO - Sending image to OCR endpoint
+2025-05-25 01:38:41,055 - INFO - Homepage accessed
+2025-05-25 01:38:41,056 - INFO - 127.0.0.1 - - [25/May/2025 01:38:41] "GET / HTTP/1.1" 200 -
+2025-05-25 01:38:41,288 - INFO - 127.0.0.1 - - [25/May/2025 01:38:41] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 01:38:41,290 - INFO - 127.0.0.1 - - [25/May/2025 01:38:41] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:38:41,518 - INFO - 127.0.0.1 - - [25/May/2025 01:38:41] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:38:41,556 - INFO - 127.0.0.1 - - [25/May/2025 01:38:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 01:38:48,885 - ERROR - Error processing request: HTTPConnectionPool(host='35.225.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x723904daed40>, 'Connection to 35.225.50.125 timed out. (connect timeout=None)'))
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 110] Connection timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPConnection object at 0x723904daed40>, 'Connection to 35.225.50.125 timed out. (connect timeout=None)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='35.225.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x723904daed40>, 'Connection to 35.225.50.125 timed out. (connect timeout=None)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py", line 52, in upload_image
+    ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/.venv/lib/python3.10/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='35.225.50.125', port=8000): Max retries exceeded with url: /upload_image/ (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x723904daed40>, 'Connection to 35.225.50.125 timed out. (connect timeout=None)'))
+2025-05-25 01:38:48,943 - INFO - 127.0.0.1 - - [25/May/2025 01:38:48] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-25 01:39:25,994 - INFO - Homepage accessed
+2025-05-25 01:39:25,994 - INFO - 127.0.0.1 - - [25/May/2025 01:39:25] "GET / HTTP/1.1" 200 -
+2025-05-25 01:39:26,136 - INFO - 127.0.0.1 - - [25/May/2025 01:39:26] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 01:39:26,145 - INFO - 127.0.0.1 - - [25/May/2025 01:39:26] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:39:26,327 - INFO - 127.0.0.1 - - [25/May/2025 01:39:26] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-25 01:39:26,612 - INFO - 127.0.0.1 - - [25/May/2025 01:39:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 01:43:43,753 - INFO - Homepage accessed
+2025-05-25 01:43:43,754 - INFO - 127.0.0.1 - - [25/May/2025 01:43:43] "GET / HTTP/1.1" 200 -
+2025-05-25 01:43:43,892 - INFO - 127.0.0.1 - - [25/May/2025 01:43:43] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:43:43,895 - INFO - 127.0.0.1 - - [25/May/2025 01:43:43] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 01:43:43,963 - INFO - 127.0.0.1 - - [25/May/2025 01:43:43] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:43:44,289 - INFO - 127.0.0.1 - - [25/May/2025 01:43:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 01:45:15,469 - INFO -  * Detected change in '/media/reaper/New Volume/Cheating_App/cheating-app-frontend-flask/app.py', reloading
+2025-05-25 01:45:15,614 - INFO -  * Restarting with stat
+2025-05-25 01:48:01,988 - INFO - Starting Flask application
+2025-05-25 01:48:02,113 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.8:5000
+2025-05-25 01:48:02,113 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 01:48:02,114 - INFO -  * Restarting with stat
+2025-05-25 01:48:02,311 - INFO - Starting Flask application
+2025-05-25 01:48:02,324 - WARNING -  * Debugger is active!
+2025-05-25 01:48:02,324 - INFO -  * Debugger PIN: 555-510-945
+2025-05-25 01:48:04,403 - INFO - Homepage accessed
+2025-05-25 01:48:04,410 - INFO - 127.0.0.1 - - [25/May/2025 01:48:04] "GET / HTTP/1.1" 200 -
+2025-05-25 01:48:04,536 - INFO - 127.0.0.1 - - [25/May/2025 01:48:04] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:48:04,540 - INFO - 127.0.0.1 - - [25/May/2025 01:48:04] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 01:48:04,572 - INFO - 127.0.0.1 - - [25/May/2025 01:48:04] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 01:48:04,930 - INFO - 127.0.0.1 - - [25/May/2025 01:48:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 01:50:17,501 - INFO - Starting Flask application
+2025-05-25 01:50:17,747 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.8:5000
+2025-05-25 01:50:17,747 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 01:50:17,749 - INFO -  * Restarting with stat
+2025-05-25 01:50:20,297 - INFO - Starting Flask application
+2025-05-25 01:50:20,467 - WARNING -  * Debugger is active!
+2025-05-25 01:50:20,479 - INFO -  * Debugger PIN: 361-292-236
+2025-05-25 02:14:07,873 - INFO - Starting Flask application
+2025-05-25 02:14:07,908 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.8:5000
+2025-05-25 02:14:07,909 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 02:14:07,910 - INFO -  * Restarting with stat
+2025-05-25 02:14:08,134 - INFO - Starting Flask application
+2025-05-25 02:14:08,150 - WARNING -  * Debugger is active!
+2025-05-25 02:14:08,235 - INFO -  * Debugger PIN: 135-721-315
+2025-05-25 02:14:51,169 - INFO - Homepage accessed
+2025-05-25 02:14:51,189 - INFO - 127.0.0.1 - - [25/May/2025 02:14:51] "GET / HTTP/1.1" 200 -
+2025-05-25 02:14:51,943 - INFO - 127.0.0.1 - - [25/May/2025 02:14:51] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 02:14:51,969 - INFO - 127.0.0.1 - - [25/May/2025 02:14:51] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 02:14:52,732 - INFO - 127.0.0.1 - - [25/May/2025 02:14:52] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 02:15:13,037 - INFO - Homepage accessed
+2025-05-25 02:15:13,040 - INFO - 127.0.0.1 - - [25/May/2025 02:15:13] "GET / HTTP/1.1" 200 -
+2025-05-25 02:15:13,596 - INFO - 127.0.0.1 - - [25/May/2025 02:15:13] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-25 02:15:13,930 - INFO - 127.0.0.1 - - [25/May/2025 02:15:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:16:04,236 - INFO - Homepage accessed
+2025-05-25 02:16:04,240 - INFO - 127.0.0.1 - - [25/May/2025 02:16:04] "GET / HTTP/1.1" 200 -
+2025-05-25 02:16:04,691 - INFO - 127.0.0.1 - - [25/May/2025 02:16:04] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:16:05,007 - INFO - 127.0.0.1 - - [25/May/2025 02:16:05] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 02:16:10,735 - INFO - Homepage accessed
+2025-05-25 02:16:10,738 - INFO - 127.0.0.1 - - [25/May/2025 02:16:10] "GET / HTTP/1.1" 200 -
+2025-05-25 02:16:11,359 - INFO - 127.0.0.1 - - [25/May/2025 02:16:11] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:16:11,407 - INFO - 127.0.0.1 - - [25/May/2025 02:16:11] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-25 02:16:20,310 - INFO - Homepage accessed
+2025-05-25 02:16:20,313 - INFO - 127.0.0.1 - - [25/May/2025 02:16:20] "GET / HTTP/1.1" 200 -
+2025-05-25 02:16:20,729 - INFO - 127.0.0.1 - - [25/May/2025 02:16:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:16:20,776 - INFO - 127.0.0.1 - - [25/May/2025 02:16:20] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-25 02:17:55,999 - INFO - Homepage accessed
+2025-05-25 02:17:56,002 - INFO - 127.0.0.1 - - [25/May/2025 02:17:56] "GET / HTTP/1.1" 200 -
+2025-05-25 02:17:56,204 - INFO - 127.0.0.1 - - [25/May/2025 02:17:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:17:56,247 - INFO - 127.0.0.1 - - [25/May/2025 02:17:56] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 02:18:01,524 - INFO - Homepage accessed
+2025-05-25 02:18:01,527 - INFO - 127.0.0.1 - - [25/May/2025 02:18:01] "GET / HTTP/1.1" 200 -
+2025-05-25 02:18:02,182 - INFO - 127.0.0.1 - - [25/May/2025 02:18:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:18:02,227 - INFO - 127.0.0.1 - - [25/May/2025 02:18:02] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-25 02:19:02,454 - INFO - Starting Flask application
+2025-05-25 02:19:02,473 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.8:5000
+2025-05-25 02:19:02,474 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 02:19:02,475 - INFO -  * Restarting with stat
+2025-05-25 02:19:02,684 - INFO - Starting Flask application
+2025-05-25 02:19:02,701 - WARNING -  * Debugger is active!
+2025-05-25 02:19:02,701 - INFO -  * Debugger PIN: 135-721-315
+2025-05-25 02:19:06,876 - INFO - Homepage accessed
+2025-05-25 02:19:06,884 - INFO - 127.0.0.1 - - [25/May/2025 02:19:06] "GET / HTTP/1.1" 200 -
+2025-05-25 02:19:07,529 - INFO - 127.0.0.1 - - [25/May/2025 02:19:07] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:19:07,559 - INFO - 127.0.0.1 - - [25/May/2025 02:19:07] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-25 02:19:30,700 - INFO - Homepage accessed
+2025-05-25 02:19:30,701 - INFO - 127.0.0.1 - - [25/May/2025 02:19:30] "GET / HTTP/1.1" 200 -
+2025-05-25 02:19:30,799 - INFO - 127.0.0.1 - - [25/May/2025 02:19:30] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 02:19:30,805 - INFO - 127.0.0.1 - - [25/May/2025 02:19:30] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 02:19:30,908 - INFO - 127.0.0.1 - - [25/May/2025 02:19:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 02:21:27,346 - INFO - Homepage accessed
+2025-05-25 02:21:27,350 - INFO - 127.0.0.1 - - [25/May/2025 02:21:27] "GET / HTTP/1.1" 200 -
+2025-05-25 02:21:27,969 - INFO - 127.0.0.1 - - [25/May/2025 02:21:27] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-25 02:21:28,012 - INFO - 127.0.0.1 - - [25/May/2025 02:21:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:22:36,061 - INFO - Homepage accessed
+2025-05-25 02:22:36,064 - INFO - 192.168.0.10 - - [25/May/2025 02:22:36] "GET / HTTP/1.1" 200 -
+2025-05-25 02:22:36,677 - INFO - 192.168.0.10 - - [25/May/2025 02:22:36] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 02:22:36,680 - INFO - 192.168.0.10 - - [25/May/2025 02:22:36] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 02:22:42,614 - INFO - 192.168.0.10 - - [25/May/2025 02:22:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 02:22:47,733 - INFO - Homepage accessed
+2025-05-25 02:22:47,736 - INFO - 192.168.0.10 - - [25/May/2025 02:22:47] "GET / HTTP/1.1" 200 -
+2025-05-25 02:22:47,797 - INFO - 192.168.0.10 - - [25/May/2025 02:22:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 02:22:47,799 - INFO - 192.168.0.10 - - [25/May/2025 02:22:47] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-05-24 21:26:02,345 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2025-05-24 21:26:02,346 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-24 21:26:39,638 - ERROR - 172.18.0.1 - - [24/May/2025 21:26:39] code 400, message Bad request version ('ÞËìD\x14º\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-24 21:26:39,639 - INFO - 172.18.0.1 - - [24/May/2025 21:26:39] "[31m[1m\x16\x03\x01\x07a\x01\x00\x07]\x03\x03Ë\x13x\x82'\x01&S\x8e\x1b³XÂZ¸4Æ\x14z\x99Þ?(\x7f\x9e+Õí!XÐ¦ %8°2YZ\x80Óa|/\x87I£[\x8fUiã|Z\x99Á@Þ\x09ÞËìD\x14º\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" 400 -
+2025-05-24 21:26:39,657 - ERROR - 172.18.0.1 - - [24/May/2025 21:26:39] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x07a\x01\x00\x07]\x03\x03\x92Ô)ÅüU{')
+2025-05-24 21:26:39,658 - INFO - 172.18.0.1 - - [24/May/2025 21:26:39] "[31m[1m\x16\x03\x01\x07a\x01\x00\x07]\x03\x03\x92Ô)ÅüU{\x1fQÐ\x89\x12\x99\x9aû}¨_[0m" 400 -
+2025-05-24 21:26:39,675 - ERROR - 172.18.0.1 - - [24/May/2025 21:26:39] code 400, message Bad request version ('àª\x0fi\x8e"×úIçª8`Â³ç\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-24 21:26:39,676 - INFO - 172.18.0.1 - - [24/May/2025 21:26:39] "[31m[1m\x16\x03\x01\x07a\x01\x00\x07]\x03\x03\x02¶ÔT\x11òþ\x8492Ò\x01r´9°ÔÊeZ%\x94µ#O\x9eÃ\x8e(bñ4 \\\x12æ:K=;¿ø*üýo#\\\x0càª\x0fi\x8e"×úIçª8`Â³ç\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" 400 -
+2025-05-24 21:26:39,678 - ERROR - 172.18.0.1 - - [24/May/2025 21:26:39] code 400, message Bad request version ('.÷Ö¼ÿ\x83ñã\x86Ébàb\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-24 21:26:39,678 - INFO - 172.18.0.1 - - [24/May/2025 21:26:39] "[31m[1m\x16\x03\x01\x02\x90\x01\x00\x02\x8c\x03\x03Ý\x96\x0dóBlJ\x90;n¤ø\x9dÄþà\x1d÷³\x8eÉßæC\x84nò£C\x99~\x82 7ÍÚÍ\x0f{ÅU\x90þ¢\x9a7ûùÙöí .÷Ö¼ÿ\x83ñã\x86Ébàb\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" 400 -
+2025-05-24 21:29:23,378 - ERROR - 172.18.0.1 - - [24/May/2025 21:29:23] code 400, message Bad request version ('Zx;~S07©\x88¤f¤\x18Á>ý(\x0f)\x1a×')
+2025-05-24 21:29:23,379 - INFO - 172.18.0.1 - - [24/May/2025 21:29:23] "[31m[1m\x16\x03\x01\x07\x12\x01\x00\x07\x0e\x03\x03\x86\x13'±\x87ðrÜj\x0ddS²\x8ak\x9fù\x1cØí¶\x8d\x13¥¨vw\x13á\x9fµ\x80 &\x07\x1eZx;~S07©\x88¤f¤\x18Á>ý(\x0f)\x1a×[0m" 400 -
+2025-05-24 21:29:23,379 - ERROR - 172.18.0.1 - - [24/May/2025 21:29:23] code 400, message Bad request version ('í\x9a¥W\x14J\x8då®ï\x16')
+2025-05-24 21:29:23,381 - INFO - 172.18.0.1 - - [24/May/2025 21:29:23] "[31m[1m\x16\x03\x01\x06Ò\x01\x00\x06Î\x03\x03\x14Ð\x96ç®@Ì.o\x08Ð Û÷uî\x8d\x8d¤\x1e±\x19.KK\x1d\x95ÄKÊÚs \x9aÐ¤$«±\x1b²¼ÛúZD\x97t\x1d³áó\x9fÐì¢ª\x0e#ÿ\x02¤\x0d@ë\x00 ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06e**\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x003\x04ï\x04í**\x00\x01\x00\x11ì\x04À\x8f5mo$\x16¨7@Ö\x97\x98=\x07\x9aª¢\x9ff|bÍ\x98¸\x90«w:$V>æ\x092\x15\x14lc\x13#\x84D*\x93ÎÙÊÅè9C\x95¶=Vc\x8aÚæ%nªD"\x1b~ß'\x8ab8\x193+MÌ¼¶!T\x882ì\\Ö\x11ÎËD¢\x9bEÏ©\x07\x0eCt*É\x81vmËY\x85#!\x1f")?æÆk\x05W«ô\x1fW\x88g¤¢»\x17¨*ËuÁ7tP:¤\x9d\x1eFUÆc´Þ\x89P\x15Ñ\x1c"\x09H?<¼\x94y\x04\x9d\x88U\x18¢nÖÌ\x93±ü\x99©£6¶\x97}\x15\x81$\x14;DÙË\x83<jÎ\x7f<¦þâ\x04\x1dÛÉ\x13ÊMß\x08ÆÇf\x185°-\x05õ\x926é\x10\x91\x99cHV\x02\x7f\x88¹ RÀè¦\x0ed0\x16\x99Ô\x09í\x9a¥W\x14J\x8då®ï\x16[0m" 400 -
+2025-05-24 21:29:23,382 - ERROR - 172.18.0.1 - - [24/May/2025 21:29:23] code 400, message Bad request version ('ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Eªª\x00\x00\x00\x17\x00\x00\x00-\x00\x02\x01\x01\x00')
+2025-05-24 21:29:23,382 - INFO - 172.18.0.1 - - [24/May/2025 21:29:23] "[31m[1m\x16\x03\x01\x06²\x01\x00\x06®\x03\x037¯2\x0bÝ¢|z\x83ºS:bVª\x0c\x16\x18{Ó0\x12ÍÞZG@ðÉdÄè Kõ\x09Xb½åZ²&`6\x02Áàºhßyç·£\x8epZ¥ñ:0\x9c­\x8b\x00 ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Eªª\x00\x00\x00\x17\x00\x00\x00-\x00\x02\x01\x01\x00[0m" 400 -
+2025-05-24 21:29:23,383 - ERROR - 172.18.0.1 - - [24/May/2025 21:29:23] code 400, message Bad request version ('\x00\x02\x01\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x17\x00\x00\x00')
+2025-05-24 21:29:23,384 - INFO - 172.18.0.1 - - [24/May/2025 21:29:23] "[31m[1m\x16\x03\x01\x06ò\x01\x00\x06î\x03\x03­0_Ø\x01$\x01%Hl«\x0fi~kªÀ{æWåwÚ\x877@e¿\x10+íý $Bò\x1e\x99ïófDàÁë`±¿g\x9d&³üã?ýiâáÒÙ\x82J<Y\x00 **\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x85\x8a\x8a\x00\x00\x00\x0b\x00\x02\x01\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x17\x00\x00\x00[0m" 400 -
+2025-05-24 21:29:50,241 - ERROR - 172.18.0.1 - - [24/May/2025 21:29:50] code 400, message Bad request version ('Ô9îó9Y½T"\x89x\x80]Ð·YÁ')
+2025-05-24 21:29:50,242 - INFO - 172.18.0.1 - - [24/May/2025 21:29:50] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03ÜPO\x95Ë¹ÉX\x93Õ´\x00 £HõÉ.j°\x07\x03g\x94\x118É!=\x9d\x85³ Ô9îó9Y½T"\x89x\x80]Ð·YÁ[0m" 400 -
+2025-05-24 21:29:50,244 - ERROR - 172.18.0.1 - - [24/May/2025 21:29:50] code 400, message Bad request version ('0\x97\x9c\x18Î')
+2025-05-24 21:29:50,245 - INFO - 172.18.0.1 - - [24/May/2025 21:29:50] "[31m[1m\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03\x1f\x11O\x83e¹áí\x84\x7f\x1d\x13Q\x1ay\x1f0\x97\x9c\x18Î[0m" 400 -
+2025-05-24 21:29:50,248 - ERROR - 172.18.0.1 - - [24/May/2025 21:29:50] code 400, message Bad request version ('Ð,ªD)8è\x91\x08W^\x0f«&\x9c÷Æëì&\x8a|a\x81\x05Náæ>¹\x87\x17\x80fHÔ|bû¶»Ì\x80!GP')
+2025-05-24 21:29:50,249 - INFO - 172.18.0.1 - - [24/May/2025 21:29:50] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03\x88<ì<V0\x9eÎÄPóv¼¼\x1bü\x98ü\x11Òÿ\x83R©V¶´\x9b\x86Ò\x07¨ ;B\x08?Òû\x9aÉï\x87\x98\\|O&T\x06ÝÏþºË_\x1fE.ÈÊfhâØ\x00 ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063úú\x00\x00\x00\x12\x00\x00DÍ\x00\x05\x00\x03\x02h2\x00\x17\x00\x00\x00\x0b\x00\x02\x01\x00\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00\x1b\x00\x03\x02\x00\x02\x00+\x00\x07\x06jj\x03\x04\x03\x03\x00-\x00\x02\x01\x01\x00#\x00\x00ÿ\x01\x00\x01\x00\x003\x04ï\x04íêê\x00\x01\x00\x11ì\x04À/y\x05X\x89EÖ\x14ÉM\x14[[cy¦Ò5d\x00x«\x89\x06Ãc¶\x0c\x06\x14æ\x09t\x94Ü[+\x95\x8bs\x96yÔtIh\x94)w\x9c°&KÄè7EkVÍh»z\x19\x8bW­4Ï­¡\x9f9\x8cÄ\x92A¢H\x07\x19«\x96NíW\x9aô´\x0b\x16¶¬Ma¼ÚâÃlÙ\x9b\x1eÐ,ªD)8è\x91\x08W^\x0f«&\x9c÷Æëì&\x8a|a\x81\x05Náæ>¹\x87\x17\x80fHÔ|bû¶»Ì\x80!GP[0m" 400 -
+2025-05-24 21:29:50,251 - ERROR - 172.18.0.1 - - [24/May/2025 21:29:50] code 400, message Bad request version ('æÏÍ7`>ð\x13ªð')
+2025-05-24 21:29:50,252 - INFO - 172.18.0.1 - - [24/May/2025 21:29:50] "[31m[1m\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03\x95\x0e&?­\x85Ê \x98\x90ßð¬\x89\x8d\x11<@ïÝt¿0\x98H©ÛkjÉÿs \x97³\\\x10i\x00/u\x1a¯ê\x96/dé\x16Ìõ¢¹¤m¨!\x01\x9bæi,\x88äP\x00 \x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93ÊÊ\x00\x00\x00#\x00\x00\x00\x12\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x003\x04ï\x04í\x9a\x9a\x00\x01\x00\x11ì\x04ÀWBuÁ\x00c¼$]¯±¿¦ô\x01Ãæ¶¾\x92\x97í\x1cn\x15c¶\x06÷m\x9bÑd\x1f\x13\x94kÜMf ,s\x98²\x89\x10\x93%\x03Zü\x06\x8f\\É¬\x96§"ÕC~K\x8a\x0f\x82*¸=qfki_8ê\x1aA¦£\x96)%7òG8{Ía0\x12Ñc\x98XÓ\x0b¾p©Ð \x9c\x0bÔ\x03ì[(ª5>El¾\x9cÐ\x04\x0e\x92\x90\x82È\x93"\x02¾v¦$fl\x9bÍì±\x8dJ\x1e×wU«Æ\x17\x06;l÷¹CÉË)\x8e\x95Êë³»ô\x85\x11A¦\x03Íäib¶lºùZ\x0dÊµø¬-Þ\x93ÌáÐp\x8c\x17N æÏÍ7`>ð\x13ªð[0m" 400 -
+2025-05-24 21:39:37,942 - INFO - Homepage accessed
+2025-05-25 03:16:49,788 - INFO - Starting Flask application
+2025-05-25 03:16:49,828 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.8:5000
+2025-05-25 03:16:49,828 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 03:16:49,829 - INFO -  * Restarting with stat
+2025-05-25 03:16:50,047 - INFO - Starting Flask application
+2025-05-25 03:16:50,062 - WARNING -  * Debugger is active!
+2025-05-25 03:16:50,063 - INFO -  * Debugger PIN: 135-721-315
+2025-05-25 03:17:19,120 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:19] code 400, message Bad request version ('(õ\x11î\x87h\x82À´8\x98\x00\\`Gãð°2[sR;9X)àÐ[S¯×\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:19,121 - INFO - 127.0.0.1 - - [25/May/2025 03:17:19] "[35m[1m\x16\x03\x01\x07O\x01\x00\x07K\x03\x03ÎÍ\x1cÝ\x99á\x1a>ô\x84`h\\\x04ç\x9c\x0dÀ\x82)\x18ßéþ\x1fÑ·ð\x8bø\\( (õ\x11î\x87h\x82À´8\x98\x00\\`Gãð°2[sR;9X)àÐ[S¯×\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:19,138 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:19] code 400, message Bad request version ('\x87Á¼~B©\x16\x07äÉm\x9d+§Ý}äB,\x80\x89\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:19,141 - INFO - 127.0.0.1 - - [25/May/2025 03:17:19] "[35m[1m\x16\x03\x01\x07O\x01\x00\x07K\x03\x03ß_"/°\x1fN\x8fÝ=]{:ûÂÄgmñÝå¤0\x8e|6 g^êT\x09 9\x98ºé\x99¸\x06\x95r¯\x0c\x87Á¼~B©\x16\x07äÉm\x9d+§Ý}äB,\x80\x89\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:19,146 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:19] code 400, message Bad request syntax ('\x16\x03\x01\x02~\x01\x00\x02z\x03\x03µfí')
+2025-05-25 03:17:19,146 - INFO - 127.0.0.1 - - [25/May/2025 03:17:19] "[35m[1m\x16\x03\x01\x02~\x01\x00\x02z\x03\x03µfí[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:21,063 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:21] code 400, message Bad request version ('\x11E\x18\x81\'Y¢åKK\x9cæèN©T)Ä\x04ÚµØ9w#\x99\x0fi\x8a\x8c\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:21,063 - INFO - 127.0.0.1 - - [25/May/2025 03:17:21] "[35m[1m\x16\x03\x01\x07O\x01\x00\x07K\x03\x03p»\x8c4Ói¦2ICf\x00QJ\x02f[«Õ\x9b@ÖÛ#a>¬vvZ!\x02 Ê\x85\x11E\x18\x81'Y¢åKK\x9cæèN©T)Ä\x04ÚµØ9w#\x99\x0fi\x8a\x8c\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:21,066 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:21] code 400, message Bad request version ('U®\x14\x0f\x86ÍÉ\x81t1ÃÿÕ8\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:21,066 - INFO - 127.0.0.1 - - [25/May/2025 03:17:21] "[35m[1m\x16\x03\x01\x02~\x01\x00\x02z\x03\x03ÿQ²4qO¤¥/\\a«\x8eÆÇ'¡\x099YfûwGü¸ó½\x92<Öc Yª\\\x90\x01Pô\x99È$\x850¾\x84Kr\x13\x1cU®\x14\x0f\x86ÍÉ\x81t1ÃÿÕ8\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:21,840 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:21] code 400, message Bad request version ('\x7f¸Ö8¨FB')
+2025-05-25 03:17:21,841 - INFO - 127.0.0.1 - - [25/May/2025 03:17:21] "[35m[1m\x16\x03\x01\x07O\x01\x00\x07K\x03\x03î\x0e'næø\x98ÜãYÚ¯º[\x0cÒÂ¢WOØ®ú9\x1ebp\x9eüÈ\x19° HV}ëÑÉa= yS\x02¼\x17#õ·Y°ÿ×\x85\x7f¸Ö8¨FB[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:21,843 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:21] code 400, message Bad request version ('LLu\x0e\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:21,844 - INFO - 127.0.0.1 - - [25/May/2025 03:17:21] "[35m[1m\x16\x03\x01\x02~\x01\x00\x02z\x03\x03B±ª~½/ÒEðl\x80X¶¶&XÌZî\x04é×yø¢\x93\x14ãA\x00)\x99 \x9cM÷u2a3xhÔT¬b\x18>\x96b¼ª®\x97nçß\x81\x14(\x0bLLu\x0e\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:40,175 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:40] code 400, message Bad request version ('Yt`ñBêäe\x8dOûUÀÎ>ç\x82Å!h®Ä\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:40,176 - INFO - 127.0.0.1 - - [25/May/2025 03:17:40] "[35m[1m\x16\x03\x01\x07O\x01\x00\x07K\x03\x03\x0f"î+¹/\x0b]»^L\x1bì\x91Q¨ú\x81(Â¬Zk\x0ep©\x9bC\\GF\x16 i\x8by¤]\x8c\x97ô¯\x0dYt`ñBêäe\x8dOûUÀÎ>ç\x82Å!h®Ä\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:40,177 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:40] code 400, message Bad request version ('\x93¯H«ùlü4CdRê\x7fb,\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:40,178 - INFO - 127.0.0.1 - - [25/May/2025 03:17:40] "[35m[1m\x16\x03\x01\x02~\x01\x00\x02z\x03\x03\x8aÀ?±Õ\x1caG\x8d\x93\x170¼\x93½\x85ûs\x1c\x99cNs\x908\x0f!î\x98\x95ãÊ ä¤ã\x94i\x85æ-ºMd\x94Pã % \x93¯H«ùlü4CdRê\x7fb,\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:44,014 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:44] code 400, message Bad request version ('¹¬\x9e¢$(\x14ÌÊ\x06½Â\x18ÿÄU0/\x9b\x8bÀrAJ\x1a³ÔGVN^ã\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:44,015 - INFO - 127.0.0.1 - - [25/May/2025 03:17:44] "[35m[1m\x16\x03\x01\x07O\x01\x00\x07K\x03\x03_óò\x04\x82\x04ì¸þ<·\x05VçÅ\x91Ûÿlð5²Ï\x09Ð\x99!s\x0fø\x10\x85 ¹¬\x9e¢$(\x14ÌÊ\x06½Â\x18ÿÄU0/\x9b\x8bÀrAJ\x1a³ÔGVN^ã\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:44,017 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:44] code 400, message Bad request version ('vM®z\x12ú=a{BÌJ%Éæ®Äû\x06\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:44,017 - INFO - 127.0.0.1 - - [25/May/2025 03:17:44] "[35m[1m\x16\x03\x01\x02~\x01\x00\x02z\x03\x03Uz\x03à¦Y/(\x02¤û¶çÖ×aÌ\x98èC$\x1aÇ\x8a~Û¤\x1dÈ\x167\x0b ¯),\x0c²\x0b:bd\x08\x03¹ vM®z\x12ú=a{BÌJ%Éæ®Äû\x06\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:46,352 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:46] code 400, message Bad request version ('1o^än³\x89õõ»Ú¢I\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:46,353 - INFO - 127.0.0.1 - - [25/May/2025 03:17:46] "[35m[1m\x16\x03\x01\x07O\x01\x00\x07K\x03\x03éD\x8aÏöh9\x04î\x16\x1c\x8b´ï\x13\x09\x82\x98\x86¬>ï\x86\x8aEÖl\x00Æ\x1fÈ§ C\x87\x11àÖ>w{i\x7f\x9b&ÚÉÜågÿ\x851o^än³\x89õõ»Ú¢I\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:46,356 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:46] code 400, message Bad request version ('(ÙÐóß\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:46,356 - INFO - 127.0.0.1 - - [25/May/2025 03:17:46] "[35m[1m\x16\x03\x01\x02~\x01\x00\x02z\x03\x03¼\x19Ýí\x84\x95¼µÁ \x00ötj6ÚQ\x05a®\x87Bbé"®\x0b\x0c±÷#ì \x16/\x0cù}\x12Î\x83DääÚN¸îÈ\x19\x1e\x7f-´öXAc\x11\x1c(ÙÐóß\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:46,995 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:46] code 400, message Bad request syntax ('\x16\x03\x01\x07O\x01\x00\x07K\x03\x03Õà:ñ`\x82\x1a')
+2025-05-25 03:17:46,995 - INFO - 127.0.0.1 - - [25/May/2025 03:17:46] "[35m[1m\x16\x03\x01\x07O\x01\x00\x07K\x03\x03Õà:ñ`\x82\x1a[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:17:46,997 - ERROR - 127.0.0.1 - - [25/May/2025 03:17:46] code 400, message Bad request version ('Zß>È{%\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2025-05-25 03:17:46,998 - INFO - 127.0.0.1 - - [25/May/2025 03:17:46] "[35m[1m\x16\x03\x01\x02~\x01\x00\x02z\x03\x03Ï_pi\x8b\x03.¿\x9fÎ\x9fS\x0fÙëO\x7fç¼[N@h\x84\x07®Q\x85_\x8a³ª )\x88øaìï\x1dÜ{Iè;J#\x0e]ÜÃ\x7fÚ(hÐT[\x09Zß>È{%\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:19:19,951 - ERROR - 127.0.0.1 - - [25/May/2025 03:19:19] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03\x02¹')
+2025-05-25 03:19:19,952 - INFO - 127.0.0.1 - - [25/May/2025 03:19:19] "[35m[1m\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03\x02¹\x0cy|·GÅ\x9f1U[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:19:19,953 - ERROR - 127.0.0.1 - - [25/May/2025 03:19:19] code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S**\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x003\x04ï\x04í')
+2025-05-25 03:19:19,954 - ERROR - 127.0.0.1 - - [25/May/2025 03:19:19] code 400, message Bad request version ('\x11\x8b')
+2025-05-25 03:19:19,955 - INFO - 127.0.0.1 - - [25/May/2025 03:19:19] "[35m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03I\x8f¨\x81§÷Ê$±Ígý¯AR\x05HC\x13ä\x95\x0e\x8dY\x92²Ä÷xk\x1fÊ \x96¥÷\x1c¯\x18\x97gà\x89\x913$¿3.\x94k²\x0c3:ñ,ìB\x9dWüký \x00 **\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S**\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x003\x04ï\x04í[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:19:19,955 - INFO - 127.0.0.1 - - [25/May/2025 03:19:19] "[35m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03\x1f\x13y¼®\x03à\x0cp\x8eðÚB\x18F|ÛäG]ôþB\x08rGlÞYòiU lË\x12\x04j,Æí^3\x96MD\x06HFó\x07âÇWñJgå­Ò»ÕÀ¼ø\x00 úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Sºº\x00\x00\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00\x0b\x00\x02\x01\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00-\x00\x02\x01\x01DÍ\x00\x05\x00\x03\x02h2\x00\x17\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x003\x04ï\x04ízz\x00\x01\x00\x11ì\x04Àá\x12\x9f\x8d\x8c((kvØF¥\x87\x88\x14\x86i&\x07éA\x04!Wñ*X\x8e´Á[1Ê\x88\x92\x08Ke<\x81Û¼3«\x95ü²\x90ð\x0c\x11\x8b[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:19:19,957 - ERROR - 127.0.0.1 - - [25/May/2025 03:19:19] code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S')
+2025-05-25 03:19:19,957 - INFO - 127.0.0.1 - - [25/May/2025 03:19:19] "[35m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03\x89%\x9e\x9ce\x1f@~\x96£@ó«$öáÁÙ\x7f\x87\x09u\x86ú(\x7fé¢alë© æÇóE\x9eÃ+7î\x80\x94ês%ÚÐØ\x02ñ/¨s3\x96¯\x0cf\x1ez\x15\x03@\x00 **\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S[0m" HTTPStatus.BAD_REQUEST -
+2025-05-25 03:22:54,623 - INFO - Starting Flask application
+2025-05-25 03:23:04,976 - INFO - Starting Flask application
+2025-05-25 03:23:41,814 - INFO - Starting Flask application
+2025-05-25 03:24:07,852 - INFO - Starting Flask application
+2025-05-25 03:24:07,864 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on https://127.0.0.1:8443
+ * Running on https://192.168.0.8:8443
+2025-05-25 03:24:07,864 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 03:24:17,789 - INFO - Homepage accessed
+2025-05-25 03:24:17,794 - INFO - 127.0.0.1 - - [25/May/2025 03:24:17] "GET / HTTP/1.1" 200 -
+2025-05-25 03:24:17,853 - INFO - 127.0.0.1 - - [25/May/2025 03:24:17] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 03:24:17,854 - INFO - 127.0.0.1 - - [25/May/2025 03:24:17] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 03:24:18,334 - INFO - 127.0.0.1 - - [25/May/2025 03:24:18] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 03:25:04,588 - INFO - Starting Flask application
+2025-05-25 03:25:04,597 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on https://127.0.0.1:8443
+ * Running on https://192.168.0.8:8443
+2025-05-25 03:25:04,598 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 03:25:57,073 - INFO - Homepage accessed
+2025-05-25 03:25:57,079 - INFO - 192.168.0.10 - - [25/May/2025 03:25:57] "GET / HTTP/1.1" 200 -
+2025-05-25 03:25:57,325 - INFO - 192.168.0.10 - - [25/May/2025 03:25:57] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 03:25:57,338 - INFO - 192.168.0.10 - - [25/May/2025 03:25:57] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 03:25:57,987 - INFO - 192.168.0.10 - - [25/May/2025 03:25:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 03:31:43,329 - INFO - Homepage accessed
+2025-05-25 03:31:43,332 - INFO - 192.168.0.10 - - [25/May/2025 03:31:43] "GET / HTTP/1.1" 200 -
+2025-05-25 03:31:44,834 - INFO - 192.168.0.10 - - [25/May/2025 03:31:44] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 03:31:44,853 - INFO - 192.168.0.10 - - [25/May/2025 03:31:44] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 03:31:56,081 - INFO - Received image upload request
+2025-05-25 03:31:56,133 - INFO - Successfully decoded base64 image
+2025-05-25 03:31:56,133 - INFO - Sending image to OCR endpoint
+2025-05-25 03:31:57,946 - INFO - OCR text extracted: }
+}
+addMessage('Error: + err.m
+// ...existing code...
+3. To run the Flask app with proper SSL suppor...
+2025-05-25 03:31:57,947 - INFO - Sending OCR text to answer endpoint
+2025-05-25 03:31:58,615 - ERROR - Answer processing failed with status code: 404
+2025-05-25 03:31:58,618 - INFO - 192.168.0.10 - - [25/May/2025 03:31:58] "[35m[1mPOST /upload_image HTTP/1.1[0m" 500 -
+2025-05-25 03:33:33,630 - INFO - Received image upload request
+2025-05-25 03:33:33,669 - INFO - Successfully decoded base64 image
+2025-05-25 03:33:33,671 - INFO - Sending image to OCR endpoint
+2025-05-25 03:33:35,489 - INFO - OCR text extracted: What is a correct way to declare a Python variable?
+var x = 5
+#X = 5
+$x = 5
+• x = 5
+Submit Answer >>...
+2025-05-25 03:33:35,490 - INFO - Sending OCR text to answer endpoint
+2025-05-25 03:33:37,127 - INFO - Answer received: x = 10...
+2025-05-25 03:33:37,131 - INFO - 192.168.0.10 - - [25/May/2025 03:33:37] "POST /upload_image HTTP/1.1" 200 -

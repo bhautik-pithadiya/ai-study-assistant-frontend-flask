@@ -63,19 +63,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const constraints = {
                 video: {
                     width: { ideal: 1280 },
-                    height: { ideal: 720 }
+                    height: { ideal: 720 },
+                    facingMode: facingMode || 'user'
                 }
             };
 
             if (deviceId) {
                 constraints.video.deviceId = { exact: deviceId };
-            } else if (facingMode) {
-                constraints.video.facingMode = { exact: facingMode };
             }
 
             stream = await navigator.mediaDevices.getUserMedia(constraints);
             video.srcObject = stream;
-            await video.play(); // Ensure video starts playing
+            
+            // Wait for video to be ready
+            await new Promise((resolve) => {
+                video.onloadedmetadata = () => {
+                    video.play()
+                        .then(() => {
+                            logger.info('Video started playing');
+                            resolve();
+                        })
+                        .catch(err => {
+                            logger.error('Error playing video', err);
+                            resolve(); // Resolve anyway to continue
+                        });
+                };
+            });
+
             logger.info('Camera access granted');
 
             // Update current facing mode based on the active track settings
@@ -85,7 +99,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (err) {
             logger.error('Error accessing camera', err);
-            alert('Error accessing camera. Please make sure you have granted camera permissions and try again.');
+            if (err.name === 'NotAllowedError') {
+                alert('Camera access was denied. Please allow camera access and refresh the page.');
+            } else if (err.name === 'NotFoundError') {
+                alert('No camera found. Please connect a camera and refresh the page.');
+            } else if (err.name === 'NotReadableError') {
+                alert('Camera is in use by another application. Please close other applications using the camera and refresh the page.');
+            } else {
+                alert('Error accessing camera: ' + err.message + '. Please refresh the page and try again.');
+            }
+            
             // Attempt to switch facing mode if the current one failed
             if (facingMode && (err.name === 'OverconstrainedError' || err.name === 'NotFoundError')) {
                 logger.warn(`Attempting to switch facing mode after error: ${err.name}`);
@@ -99,7 +122,12 @@ document.addEventListener('DOMContentLoaded', function() {
     async function detectCameras() {
         try {
             // Request permission first with a broad constraint
-            await navigator.mediaDevices.getUserMedia({ video: true });
+            await navigator.mediaDevices.getUserMedia({ 
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                }
+            });
 
             const devices = await navigator.mediaDevices.enumerateDevices();
             availableCameraDevices = devices.filter(device => device.kind === 'videoinput');
@@ -110,32 +138,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 switchCameraBtn.style.display = 'none';
             }
 
-            // Try to start with the user-facing camera if available, otherwise the first device
-            const userCamera = availableCameraDevices.find(device => 
-                device.label.toLowerCase().includes('front') || 
-                device.label.toLowerCase().includes('user'));
+            // Try to start with the environment-facing camera if available
             const environmentCamera = availableCameraDevices.find(device => 
                 device.label.toLowerCase().includes('back') || 
                 device.label.toLowerCase().includes('environment'));
+            const userCamera = availableCameraDevices.find(device => 
+                device.label.toLowerCase().includes('front') || 
+                device.label.toLowerCase().includes('user'));
 
-            if (userCamera) {
-                currentCameraIndex = availableCameraDevices.indexOf(userCamera);
-                await startCamera(userCamera.deviceId, 'user');
-            } else if (environmentCamera) {
+            // Changed priority: try environment camera first
+            if (environmentCamera) {
                 currentCameraIndex = availableCameraDevices.indexOf(environmentCamera);
                 await startCamera(environmentCamera.deviceId, 'environment');
+            } else if (userCamera) {
+                currentCameraIndex = availableCameraDevices.indexOf(userCamera);
+                await startCamera(userCamera.deviceId, 'user');
             } else if (availableCameraDevices.length > 0) {
                 currentCameraIndex = 0;
                 await startCamera(availableCameraDevices[currentCameraIndex].deviceId);
             } else {
-                await startCamera();
+                await startCamera(null, 'environment'); // Changed default to environment
             }
 
         } catch (err) {
             logger.error('Error enumerating devices or starting default camera', err);
             switchCameraBtn.style.display = 'none';
-            if (err.name === 'NotAllowedError' || err.name === 'NotFoundError') {
-                alert('Camera access denied or no cameras found. Please check permissions and refresh the page.');
+            if (err.name === 'NotAllowedError') {
+                alert('Camera access was denied. Please allow camera access and refresh the page.');
+            } else if (err.name === 'NotFoundError') {
+                alert('No camera found. Please connect a camera and refresh the page.');
+            } else {
+                alert('Error accessing camera: ' + err.message + '. Please refresh the page and try again.');
             }
         }
     }
@@ -214,31 +247,47 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!capturedImage) return;
         
         logger.info('Processing image');
-        const imageData = capturedImage.src;
-        
         try {
+            // Show loading indicator
+            processBtn.disabled = true;
+            processBtn.textContent = 'Processing...';
+            
+            // Convert base64 to blob
+            const res = await fetch(capturedImage.src);
+            const blob = await res.blob();
+
+            // Create FormData
+            const formData = new FormData();
+            formData.append('file', blob, 'captured.jpg');
+
+            // Get the current host
+            const currentHost = window.location.protocol + '//' + window.location.host;
+
             logger.info('Sending image to server');
-            const response = await fetch('/upload_image', {
+            const response = await fetch(`${currentHost}/upload_image`, {
                 method: 'POST',
+                body: JSON.stringify({ image: capturedImage.src }),
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ image: imageData })
+                    'Content-Type': 'application/json'
+                }
             });
 
-            const data = await response.json();
-            
-            if (response.ok) {
-                logger.info('Image processed successfully');
-                ocrText.textContent = data.ocr_text;
-                answer.textContent = data.answer;
-            } else {
-                logger.error('Error processing image', data.error);
-                alert('Error processing image: ' + data.error);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+
+            const data = await response.json();
+            logger.info('Image processed successfully');
+            ocrText.textContent = data.ocr_text;
+            answer.textContent = data.answer;
+
         } catch (err) {
             logger.error('Error processing image', err);
-            alert('Error processing image. Please try again.');
+            alert('Error processing image: ' + err.message);
+        } finally {
+            // Reset button state
+            processBtn.disabled = false;
+            processBtn.textContent = 'Process Image';
         }
     });
 
@@ -265,23 +314,25 @@ document.addEventListener('DOMContentLoaded', function() {
         chatInput.value = '';
 
         try {
+            const currentHost = window.location.protocol + '//' + window.location.host;
             logger.info('Sending message to server');
-            const response = await fetch('/answer_mcq/' + encodeURIComponent(message), {
-                method: 'POST'
+            const response = await fetch(`${currentHost}/upload_image`, {
+                method: 'POST',
+                body: JSON.stringify({ message: message }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
-            const data = await response.json();
-            
-            if (response.ok) {
-                logger.info('Received answer from server');
-                addMessage(data.answer);
-            } else {
-                logger.error('Error from server', data.error);
-                addMessage('Error: ' + data.error);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+
+            const data = await response.json();
+            addMessage(data.answer);
         } catch (err) {
             logger.error('Error sending message', err);
-            addMessage('Error sending message. Please try again.');
+            addMessage('Error: ' + err.message);
         }
     }
 

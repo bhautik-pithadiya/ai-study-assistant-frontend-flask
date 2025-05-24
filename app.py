@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import requests
 import os
 from PIL import Image
@@ -19,8 +20,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
 
-API_BASE_URL = "http://35.225.50.125:8000"
+# Change the API_BASE_URL to be configurable
+API_BASE_URL = os.getenv('API_BASE_URL', 'http://35.223.82.215:8000')
 
 @app.route('/')
 def index():
@@ -78,6 +81,9 @@ def upload_image():
         logger.error(f'Error processing request: {str(e)}', exc_info=True)
         return jsonify({'error': str(e)}), 500
 
-if __name__ == '__main__':
+  
+if __name__ == "__main__":
     logger.info('Starting Flask application')
-    app.run(debug=True) 
+    # app.run(ssl_context=('cert.pem', 'key.pem'), host='0.0.0.0', port=8443)
+    app.run(host="127.0.0.1", port=5000)
+
