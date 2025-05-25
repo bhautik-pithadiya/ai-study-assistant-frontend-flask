@@ -81,5 +81,5 @@ def upload_image():
 if __name__ == "__main__":
     logger.info('Starting Flask application')
     # app.run(ssl_context=('cert.pem', 'key.pem'), host='0.0.0.0', port=8443)
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="127.0.0.1", port=5000)
 
