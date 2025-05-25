@@ -37,6 +37,9 @@ def upload_image():
         
         # Get the image data from the request
         image_data = request.json.get('image')
+        # Get optional text data from the request
+        optional_text = request.json.get('text')
+
         if not image_data:
             logger.error('No image data provided in request')
             return jsonify({'error': 'No image data provided'}), 400
@@ -49,21 +52,15 @@ def upload_image():
         image_bytes = base64.b64decode(image_data)
         logger.info('Successfully decoded base64 image')
         
-        # Send to OCR endpoint
+        # Prepare data for the new multimodel endpoint
         files = {'file': ('image.jpg', image_bytes, 'image/jpeg')}
-        logger.info('Sending image to OCR endpoint')
-        ocr_response = requests.post(f"{API_BASE_URL}/upload_image/", files=files)
-        
-        if ocr_response.status_code != 200:
-            logger.error(f'OCR processing failed with status code: {ocr_response.status_code}')
-            return jsonify({'error': 'OCR processing failed'}), 500
+        data = {}
+        if optional_text:
+            data['text'] = optional_text
 
-        ocr_text = ocr_response.json().get('ocr_text', '')
-        logger.info(f'OCR text extracted: {ocr_text[:100]}...')
-        
-        # Send to answer endpoint
-        logger.info('Sending OCR text to answer endpoint')
-        answer_response = requests.post(f"{API_BASE_URL}/answer_mcq/{ocr_text}")
+        # Send to the new multimodel answer endpoint
+        logger.info('Sending image and optional text to /api/v1/answer/ endpoint')
+        answer_response = requests.post(f"{API_BASE_URL}/api/v1/answer/", files=files, data=data)
         
         if answer_response.status_code != 200:
             logger.error(f'Answer processing failed with status code: {answer_response.status_code}')
@@ -73,7 +70,6 @@ def upload_image():
         logger.info(f'Answer received: {answer[:100]}...')
         
         return jsonify({
-            'ocr_text': ocr_text,
             'answer': answer
         })
 
