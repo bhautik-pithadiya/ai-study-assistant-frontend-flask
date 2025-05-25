@@ -37,9 +37,9 @@ def upload_image():
         
         # Get the image data from the request
         image_data = request.json.get('image')
-        # Get optional text data from the request
-        optional_text = request.json.get('text')
-
+        # Get the optional text data from the request
+        optional_text = request.json.get('text', '') # Get optional text, default to empty string
+        
         if not image_data:
             logger.error('No image data provided in request')
             return jsonify({'error': 'No image data provided'}), 400
@@ -54,21 +54,21 @@ def upload_image():
         
         # Prepare data for the new multimodel endpoint
         files = {'file': ('image.jpg', image_bytes, 'image/jpeg')}
-        data = {}
-        if optional_text:
-            data['text'] = optional_text
+        data = {'text': optional_text}
 
         # Send to the new multimodel answer endpoint
-        logger.info('Sending image and optional text to /api/v1/answer/ endpoint')
+        logger.info('Sending image and text to /api/v1/answer/ endpoint')
         answer_response = requests.post(f"{API_BASE_URL}/api/v1/answer/", files=files, data=data)
         
         if answer_response.status_code != 200:
             logger.error(f'Answer processing failed with status code: {answer_response.status_code}')
             return jsonify({'error': 'Answer processing failed'}), 500
 
+        # Extract the answer from the response
         answer = answer_response.json().get('answer', '')
         logger.info(f'Answer received: {answer[:100]}...')
         
+        # The new endpoint only returns the answer, so we return just that.
         return jsonify({
             'answer': answer
         })
@@ -81,5 +81,5 @@ def upload_image():
 if __name__ == "__main__":
     logger.info('Starting Flask application')
     # app.run(ssl_context=('cert.pem', 'key.pem'), host='0.0.0.0', port=8443)
-    app.run(host="127.0.0.1", port=5000)
+    app.run(host="127.0.0.1", port=5000, debug=True)
 

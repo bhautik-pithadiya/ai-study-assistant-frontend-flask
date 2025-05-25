@@ -8,49 +8,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
     logger.info('Application initialized');
 
-    // Camera and Chat functionality (Combined)
+    // Toggle between camera and chat sections
+    const cameraBtn = document.getElementById('cameraBtn');
+    const chatBtn = document.getElementById('chatBtn');
+    const cameraSection = document.getElementById('cameraSection');
+    const chatSection = document.getElementById('chatSection');
+
+    cameraBtn.addEventListener('click', () => {
+        logger.info('Switching to camera mode');
+        cameraSection.classList.add('active');
+        chatSection.classList.remove('active');
+        cameraBtn.classList.add('btn-primary');
+        cameraBtn.classList.remove('btn-secondary');
+        chatBtn.classList.add('btn-secondary');
+        chatBtn.classList.remove('btn-primary');
+        // Initialize camera when switching to camera mode
+        detectCameras();
+    });
+
+    chatBtn.addEventListener('click', () => {
+        logger.info('Switching to chat mode');
+        chatSection.classList.add('active');
+        cameraSection.classList.remove('active');
+        chatBtn.classList.add('btn-primary');
+        chatBtn.classList.remove('btn-secondary');
+        cameraBtn.classList.add('btn-secondary');
+        cameraBtn.classList.remove('btn-primary');
+    });
+
+    // Camera functionality
     const video = document.getElementById('camera');
     const canvas = document.getElementById('canvas');
-    const cameraBtn = document.getElementById('cameraBtn'); // Re-define cameraBtn for the new UI
-    const sendBtn = document.getElementById('sendBtn'); // Re-define sendBtn for the new UI
-    const chatInput = document.getElementById('chatInput'); // Re-define chatInput for the new UI
+    const captureBtn = document.getElementById('captureBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const processBtn = document.getElementById('processBtn');
     const preview = document.getElementById('preview');
-    const chatMessages = document.getElementById('chatMessages');
-    const cameraPreviewArea = document.getElementById('cameraPreviewArea');
-    const removeImageBtn = document.getElementById('removeImageBtn');
-    const answer = document.getElementById('answer'); // Answer display integrated into messages
-    const switchCameraBtn = document.getElementById('switchCameraBtn'); // Keep switch camera if needed
+    const ocrText = document.getElementById('ocrText');
+    const answer = document.getElementById('answer');
+    const switchCameraBtn = document.getElementById('switchCameraBtn');
 
     let stream = null;
     let capturedImage = null;
     let availableCameraDevices = [];
     let currentCameraIndex = 0;
     let currentFacingMode = 'user'; // Default to front camera
-
-    // Function to add messages to the chat window
-    function addMessage(text, isUser = false, isImage = false, imageUrl = null) {
-        logger.info(`Adding ${isUser ? 'user' : 'bot'} message: ${text ? text.substring(0, 50) : 'Image'}...`);
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
-
-        if (isImage && imageUrl) {
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.style.maxWidth = '100%';
-            img.style.height = 'auto';
-            messageDiv.appendChild(img);
-            if (text) {
-                 const textNode = document.createElement('div');
-                 textNode.textContent = text;
-                 messageDiv.appendChild(textNode);
-            }
-        } else {
-            messageDiv.textContent = text;
-        }
-
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
 
     // Start camera
     async function startCamera(deviceId, facingMode) {
@@ -96,23 +97,16 @@ document.addEventListener('DOMContentLoaded', function() {
             currentFacingMode = settings.facingMode || currentFacingMode;
             logger.info(`Active camera facing mode: ${currentFacingMode}`);
 
-            // Show video feed in the preview area
-            video.style.display = 'block';
-            preview.innerHTML = ''; // Clear any previous preview
-            preview.appendChild(video);
-            cameraPreviewArea.style.display = 'block';
-            removeImageBtn.style.display = 'none'; // Hide remove button initially
-
         } catch (err) {
             logger.error('Error accessing camera', err);
             if (err.name === 'NotAllowedError') {
-                alert('Camera access was denied. Please allow camera access.');
+                alert('Camera access was denied. Please allow camera access and refresh the page.');
             } else if (err.name === 'NotFoundError') {
-                alert('No camera found. Please connect a camera.');
+                alert('No camera found. Please connect a camera and refresh the page.');
             } else if (err.name === 'NotReadableError') {
-                alert('Camera is in use by another application.');
+                alert('Camera is in use by another application. Please close other applications using the camera and refresh the page.');
             } else {
-                alert('Error accessing camera: ' + err.message);
+                alert('Error accessing camera: ' + err.message + '. Please refresh the page and try again.');
             }
             
             // Attempt to switch facing mode if the current one failed
@@ -121,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const nextFacingMode = facingMode === 'user' ? 'environment' : 'user';
                 startCamera(null, nextFacingMode);
             }
-             cameraPreviewArea.style.display = 'none'; // Hide area if camera fails
         }
     }
 
@@ -171,63 +164,17 @@ document.addEventListener('DOMContentLoaded', function() {
             logger.error('Error enumerating devices or starting default camera', err);
             switchCameraBtn.style.display = 'none';
             if (err.name === 'NotAllowedError') {
-                alert('Camera access was denied. Please allow camera access.');
+                alert('Camera access was denied. Please allow camera access and refresh the page.');
             } else if (err.name === 'NotFoundError') {
-                alert('No camera found. Please connect a camera.');
+                alert('No camera found. Please connect a camera and refresh the page.');
             } else {
-                alert('Error accessing camera: ' + err.message);
+                alert('Error accessing camera: ' + err.message + '. Please refresh the page and try again.');
             }
         }
     }
 
-    // Initialize camera when the camera button is clicked
-    cameraBtn.addEventListener('click', () => {
-        logger.info('Camera button clicked. Detecting and starting cameras.');
-        detectCameras();
-    });
-
-    // Capture image from video feed
-    function captureImage() {
-        logger.info('Capturing image');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        
-        // Stop the video stream
-        if (stream) {
-            stream.getTracks().forEach(track => track.stop());
-        }
-        
-        // Hide video and show captured image in the preview area
-        video.style.display = 'none';
-        const img = document.createElement('img');
-        img.src = canvas.toDataURL('image/jpeg');
-        img.style.display = 'block';
-        img.style.maxWidth = '100%';
-        img.style.height = 'auto';
-        preview.innerHTML = '';
-        preview.appendChild(img);
-        capturedImage = img;
-
-        cameraPreviewArea.style.display = 'block'; // Ensure preview area is visible
-        removeImageBtn.style.display = 'inline-block'; // Show remove button
-
-        logger.info('Image captured and displayed in preview');
-    }
-
-    // Add click listener to the video feed to trigger capture
-    video.addEventListener('click', captureImage);
-
-    // Remove captured image
-    removeImageBtn.addEventListener('click', () => {
-        logger.info('Removing captured image');
-        preview.innerHTML = '';
-        capturedImage = null;
-        cameraPreviewArea.style.display = 'none';
-        removeImageBtn.style.display = 'none';
-        // Optionally restart camera or just clear preview
-        // startCamera(); // Uncomment to restart camera after removing image
-    });
+    // Initialize camera when the page loads
+    detectCameras();
 
     // Modify switch camera button logic to cycle through devices AND try toggling facing mode
     switchCameraBtn.addEventListener('click', () => {
@@ -250,41 +197,73 @@ document.addEventListener('DOMContentLoaded', function() {
         startCamera(nextCamera.deviceId, preferredFacingMode);
     });
 
-    // Send message (text + optional image)
-    async function sendMessage() {
-        const text = chatInput.value.trim();
-        const imageData = capturedImage ? capturedImage.src.split(',')[1] : null; // Get base64 data if image exists
-
-        if (!text && !imageData) {
-            logger.warn('Send button clicked with no text and no image.');
-            return; // Don't send if both are empty
-        }
-
-        logger.info(`Sending message: ${text ? text.substring(0, 50) : 'No text'}..., Image: ${imageData ? 'Yes' : 'No'}`);
-
-        // Add user message with image to chat window immediately
-        addMessage(text, true, capturedImage ? true : false, capturedImage ? capturedImage.src : null);
-
-        // Clear input and preview after sending
-        chatInput.value = '';
-        preview.innerHTML = '';
-        capturedImage = null;
-        cameraPreviewArea.style.display = 'none';
-        removeImageBtn.style.display = 'none';
-         if (stream) { // Stop camera stream if active after sending
+    // Capture image
+    captureBtn.addEventListener('click', () => {
+        logger.info('Capturing image');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        
+        // Stop the video stream
+        if (stream) {
             stream.getTracks().forEach(track => track.stop());
         }
+        
+        // Hide video and show captured image
+        video.style.display = 'none';
+        const img = document.createElement('img');
+        img.src = canvas.toDataURL('image/jpeg');
+        img.style.display = 'block';
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        preview.innerHTML = '';
+        preview.appendChild(img);
+        capturedImage = img;
+
+        captureBtn.style.display = 'none';
+        retakeBtn.style.display = 'inline-block';
+        processBtn.style.display = 'inline-block';
+        logger.info('Image captured and displayed');
+    });
+
+    // Retake photo
+    retakeBtn.addEventListener('click', () => {
+        logger.info('Retaking photo');
+        preview.innerHTML = '';
+        video.style.display = 'block';
+        captureBtn.style.display = 'inline-block';
+        retakeBtn.style.display = 'none';
+        processBtn.style.display = 'none';
+        ocrText.textContent = '';
+        answer.textContent = '';
+        capturedImage = null;
+        
+        // Restart camera
+        startCamera();
+    });
+
+    // Process image
+    processBtn.addEventListener('click', async () => {
+        if (!capturedImage) return;
+        
+        logger.info('Processing image');
+        // Disable button and show processing status
+        processBtn.disabled = true;
+        processBtn.textContent = 'Processing...';
 
         try {
+            // Get image data as base64
+            const imageData = capturedImage.src;
+            // Get prompt text
+            const promptText = document.getElementById('promptText').value;
+
+            // Send image and prompt to backend
             const response = await fetch('/upload_image', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    image: imageData ? `data:image/jpeg;base64,${imageData}` : null,
-                    text: text
-                })
+                body: JSON.stringify({ image: imageData, text: promptText })
             });
 
             if (!response.ok) {
@@ -292,12 +271,61 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const data = await response.json();
-            // Add bot answer to chat window
+            logger.info('Image processed successfully');
+            answer.textContent = data.answer;
+
+        } catch (err) {
+            logger.error('Error processing image', err);
+            alert('Error processing image: ' + err.message);
+        } finally {
+            // Re-enable button and reset text
+            processBtn.disabled = false;
+            processBtn.textContent = 'Process Image';
+        }
+    });
+
+    // Chat functionality
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const chatMessages = document.getElementById('chatMessages');
+
+    function addMessage(text, isUser = false) {
+        logger.info(`Adding ${isUser ? 'user' : 'bot'} message: ${text.substring(0, 50)}...`);
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+        messageDiv.textContent = text;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        logger.info(`Sending message: ${message}`);
+        addMessage(message, true);
+        chatInput.value = '';
+
+        try {
+            const currentHost = window.location.protocol + '//' + window.location.host;
+            logger.info('Sending message to server');
+            const response = await fetch(`${currentHost}/upload_image`, {
+                method: 'POST',
+                body: JSON.stringify({ message: message }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
             addMessage(data.answer);
-            logger.info('Message sent and response received successfully');
-        } catch (error) {
-            logger.error('Error sending message', error);
-            addMessage('Error: ' + error.message); // Display error in chat window
+        } catch (err) {
+            logger.error('Error sending message', err);
+            addMessage('Error: ' + err.message);
         }
     }
 
@@ -307,13 +335,4 @@ document.addEventListener('DOMContentLoaded', function() {
             sendMessage();
         }
     });
-
-    // Adjust chat input height automatically
-    chatInput.addEventListener('input', () => {
-        chatInput.style.height = 'auto';
-        chatInput.style.height = (chatInput.scrollHeight) + 'px';
-    });
-
-    // Initial height adjustment
-    chatInput.style.height = (chatInput.scrollHeight) + 'px';
 });
