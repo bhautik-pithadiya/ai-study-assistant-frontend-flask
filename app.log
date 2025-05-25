@@ -1183,3 +1183,53 @@ Submit Answer >>...
 2025-05-25 03:33:35,490 - INFO - Sending OCR text to answer endpoint
 2025-05-25 03:33:37,127 - INFO - Answer received: x = 10...
 2025-05-25 03:33:37,131 - INFO - 192.168.0.10 - - [25/May/2025 03:33:37] "POST /upload_image HTTP/1.1" 200 -
+2025-05-25 07:13:12,229 - INFO - Starting Flask application
+2025-05-25 07:13:12,235 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-25 07:13:12,235 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 07:13:24,401 - INFO - Homepage accessed
+2025-05-25 07:13:24,417 - INFO - 127.0.0.1 - - [25/May/2025 07:13:24] "GET / HTTP/1.1" 200 -
+2025-05-25 07:13:24,478 - INFO - 127.0.0.1 - - [25/May/2025 07:13:24] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 07:13:24,971 - INFO - 127.0.0.1 - - [25/May/2025 07:13:24] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 07:13:25,023 - INFO - 127.0.0.1 - - [25/May/2025 07:13:25] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 07:13:31,905 - INFO - Received image upload request
+2025-05-25 07:13:31,910 - INFO - Successfully decoded base64 image
+2025-05-25 07:13:31,911 - INFO - Sending image and optional text to /api/v1/answer/ endpoint
+2025-05-25 07:13:35,857 - INFO - Answer received: I'm sorry, but the image provided does not contain an academic question. Please provide an image wit...
+2025-05-25 07:13:35,860 - INFO - 127.0.0.1 - - [25/May/2025 07:13:35] "POST /upload_image HTTP/1.1" 200 -
+2025-05-25 07:13:51,965 - INFO - Received image upload request
+2025-05-25 07:13:51,968 - INFO - Successfully decoded base64 image
+2025-05-25 07:13:51,969 - INFO - Sending image and optional text to /api/v1/answer/ endpoint
+2025-05-25 07:13:56,234 - INFO - Answer received: The image provided does not contain an academic question. Please provide an image with a question fo...
+2025-05-25 07:13:56,237 - INFO - 127.0.0.1 - - [25/May/2025 07:13:56] "POST /upload_image HTTP/1.1" 200 -
+2025-05-25 07:15:18,550 - INFO - Homepage accessed
+2025-05-25 07:15:18,553 - INFO - 127.0.0.1 - - [25/May/2025 07:15:18] "GET / HTTP/1.1" 200 -
+2025-05-25 07:15:18,599 - INFO - 127.0.0.1 - - [25/May/2025 07:15:18] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 07:15:18,685 - INFO - 127.0.0.1 - - [25/May/2025 07:15:18] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 07:15:18,700 - INFO - 127.0.0.1 - - [25/May/2025 07:15:18] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 07:15:53,042 - INFO - Starting Flask application
+2025-05-25 07:15:53,049 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-25 07:15:53,049 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 07:15:59,588 - INFO - Homepage accessed
+2025-05-25 07:15:59,607 - INFO - 127.0.0.1 - - [25/May/2025 07:15:59] "GET / HTTP/1.1" 200 -
+2025-05-25 07:15:59,651 - INFO - 127.0.0.1 - - [25/May/2025 07:15:59] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-25 07:15:59,697 - INFO - 127.0.0.1 - - [25/May/2025 07:15:59] "GET /static/script.js HTTP/1.1" 200 -
+2025-05-25 07:15:59,708 - INFO - 127.0.0.1 - - [25/May/2025 07:15:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-25 07:16:19,474 - INFO - Received image upload request
+2025-05-25 07:16:19,479 - INFO - Successfully decoded base64 image
+2025-05-25 07:16:19,480 - INFO - Sending image and optional text to /api/v1/answer/ endpoint
+2025-05-25 07:16:21,248 - INFO - Received image upload request
+2025-05-25 07:16:21,253 - INFO - Successfully decoded base64 image
+2025-05-25 07:16:21,254 - INFO - Sending image and optional text to /api/v1/answer/ endpoint
+2025-05-25 07:16:22,356 - INFO - Received image upload request
+2025-05-25 07:16:22,361 - INFO - Successfully decoded base64 image
+2025-05-25 07:16:22,361 - INFO - Sending image and optional text to /api/v1/answer/ endpoint
+2025-05-25 07:16:22,872 - INFO - Answer received: The image shows a person....
+2025-05-25 07:16:22,875 - INFO - 127.0.0.1 - - [25/May/2025 07:16:22] "POST /upload_image HTTP/1.1" 200 -
+2025-05-25 07:16:50,726 - INFO - Answer received: A person wearing glasses....
+2025-05-25 07:16:50,729 - INFO - 127.0.0.1 - - [25/May/2025 07:16:50] "POST /upload_image HTTP/1.1" 200 -
+2025-05-25 07:16:55,867 - INFO - 127.0.0.1 - - [25/May/2025 07:16:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-25 07:16:55,886 - INFO - 127.0.0.1 - - [25/May/2025 07:16:55] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-05-25 07:17:17,137 - INFO - Answer received: I am unable to identify the person in the image....
+2025-05-25 07:17:17,139 - INFO - 127.0.0.1 - - [25/May/2025 07:17:17] "POST /upload_image HTTP/1.1" 200 -
