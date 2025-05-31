@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Voice Recording</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/transcription.css') }}">
+    <style>
+        .recording-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .controls {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .audio-box {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            min-height: 200px;
+            margin-bottom: 20px;
+        }
+        .transcript-box {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            min-height: 200px;
+            margin-bottom: 20px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-recording {
+            background-color: #dc3545;
+            animation: pulse 1.5s infinite;
+        }
+        .status-stopped {
+            background-color: #6c757d;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .btn-control {
+            min-width: 120px;
+            margin: 0 5px;
+        }
+        .chunk-info {
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .transcript-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .transcript-item:last-child {
+            border-bottom: none;
+        }
+        .confidence-badge {
+            font-size: 0.8em;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+        .confidence-high {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .confidence-medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .confidence-low {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Question Solver</a>
+            <div class="navbar-nav ms-auto">
+                <span class="nav-item nav-link text-light me-3">Welcome, {{ session.get('user', 'User') }}</span>
+                <a class="nav-link btn btn-outline-light" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="recording-container">
+        <div class="controls">
+            <div class="mb-3">
+                <span class="status-indicator status-stopped" id="statusIndicator"></span>
+                <span id="statusText">Not Recording</span>
+            </div>
+            <button class="btn btn-primary btn-control" id="startBtn">Start Recording</button>
+            <button class="btn btn-danger btn-control" id="stopBtn" disabled>Stop Recording</button>
+        </div>
+
+        <div class="audio-box">
+            <h5>Recording Status</h5>
+            <div id="chunkInfo" class="chunk-info">
+                <p>No recording in progress</p>
+            </div>
+        </div>
+
+        <div class="transcript-box">
+            <h5>Live Transcript</h5>
+            <div id="transcriptContainer">
+                <p class="text-muted">Transcripts will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/transcription.js') }}"></script>
+</body>
+</html> 
