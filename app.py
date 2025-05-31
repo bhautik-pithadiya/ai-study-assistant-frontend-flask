@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_cors import CORS
 import requests
 import os
@@ -7,6 +7,7 @@ import io
 import base64
 import logging
 from datetime import datetime
+from functools import wraps
 
 # Configure logging
 logging.basicConfig(
@@ -21,11 +22,42 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
+app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here')  # Change this in production!
 
 # Change the API_BASE_URL to be configurable
 API_BASE_URL = os.getenv('API_BASE_URL', 'http://35.223.82.215:8000')
 
+# Login required decorator
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        # TODO: Replace this with actual user authentication
+        if username == 'admin' and password == 'password':
+            session['user'] = username
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html', error='Invalid username or password')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
 @app.route('/')
+@login_required
 def index():
     logger.info('Homepage accessed')
     return render_template('index.html')
