@@ -25,7 +25,15 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
 app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here')  # Change this in production!
 
 # Change the API_BASE_URL to be configurable
-API_BASE_URL = os.getenv('API_BASE_URL', 'http://35.223.82.215:8000')
+API_BASE_URL = os.getenv('API_BASE_URL', 'http://127.0.0.1:8000')
+
+# Audio chunk size configuration (in seconds)
+CHUNK_SIZES = {
+    'small': 1,    # 1 second chunks
+    'medium': 2,   # 2 second chunks
+    'large': 3,    # 3 second chunks
+    'xlarge': 4    # 4 second chunks
+}
 
 # Login required decorator
 def login_required(f):
@@ -109,7 +117,73 @@ def upload_image():
         logger.error(f'Error processing request: {str(e)}', exc_info=True)
         return jsonify({'error': str(e)}), 500
 
-  
+@app.route('/recording')
+@login_required
+def recording():
+    return render_template('transcription.html')
+
+@app.route('/transcribe', methods=['POST'])
+@login_required
+def transcribe():
+    try:
+        data = request.json
+        if not data or 'audio' not in data:
+            logger.error('No audio data provided in request')
+            return jsonify({'error': 'No audio data provided'}), 400
+
+        # Get chunk size from request or use default
+        chunk_size = data.get('chunk_size', CHUNK_SIZES['medium'])
+        chunk_index = data.get('chunk_index', 0)
+        audio_mime_type = data.get('audio_mime_type', 'audio/webm;codecs=opus')
+        
+        # Log chunk information
+        logger.info(f'Processing chunk {chunk_index} with size {chunk_size}s')
+        
+        # Decode base64 audio
+        # try:
+        #     audio_bytes = base64.b64decode(data['audio'])
+        #     logger.info(f'Successfully decoded audio chunk {chunk_index} (size: {len(audio_bytes)} bytes)')
+        # except Exception as e:
+        #     logger.error(f'Error decoding audio chunk {chunk_index}: {str(e)}')
+        #     return jsonify({'error': 'Invalid audio data format'}), 400
+
+        audio_data = data['audio']
+        # Prepare request for FastAPI endpoint
+        transcribe_request = {
+            'audio_content': audio_data,  # Convert bytes to hex string for JSON
+            'audio_mime_type': audio_mime_type
+        }
+
+        # Send to FastAPI endpoint
+        try:
+            logger.info(f'Sending chunk {chunk_index} to transcription service')
+            response = requests.post(
+                f"{API_BASE_URL}/api/v1/transcribe/transcribe",
+                json=transcribe_request
+            )
+            response.raise_for_status()
+            
+            result = response.json()
+            logger.info(f'Successfully transcribed chunk {chunk_index}: {result}')
+            
+            return jsonify({
+                'status': 'success',
+                'chunk_index': chunk_index,
+                'chunk_size': chunk_size,
+                'transcript': result.get('transcript', ''),
+                'confidence': result.get('confidence', 0.0)
+            })
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f'Error calling transcription service for chunk {chunk_index}: {str(e)}')
+            if hasattr(e.response, 'text'):
+                logger.error(f'Response text: {e.response.text}')
+            return jsonify({'error': 'Transcription service error'}), 500
+
+    except Exception as e:
+        logger.error(f'Error in transcription: {str(e)}', exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == "__main__":
     logger.info('Starting Flask application')
     # app.run(ssl_context=('cert.pem', 'key.pem'), host='0.0.0.0', port=8443)

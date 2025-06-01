@@ -1,6 +1,7 @@
 let mediaRecorder;
-let audioChunks = [];
+let ws;
 let isRecording = false;
+let audioChunks = [];
 let chunkCounter = 0;
 let failedChunks = [];
 
@@ -11,9 +12,60 @@ const statusText = document.getElementById('statusText');
 const chunkInfo = document.getElementById('chunkInfo');
 const transcriptContainer = document.getElementById('transcriptContainer');
 
-startBtn.addEventListener('click', startRecording);
-stopBtn.addEventListener('click', stopRecording);
+const backend_url = "http://localhost:8000"
+// WebSocket connection setup
+function connectWebSocket() {
+    // const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${backend_url}/api/v1/transcribe_ws/stream`;
+    
+    ws = new WebSocket(wsUrl);
+    
+    ws.onopen = () => {
+        console.log('WebSocket connected');
+    };
+    
+    ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        displayTranscript(data);
+    };
+    
+    ws.onclose = () => {
+        console.log('WebSocket disconnected');
+        if (isRecording) {
+            stopRecording();
+        }
+    };
+    
+    ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        stopRecording();
+    };
+}
 
+// Display transcript with confidence level
+function displayTranscript(data) {
+    const { transcript, confidence, is_final } = data;
+    
+    const transcriptItem = document.createElement('div');
+    transcriptItem.className = 'transcript-item';
+    
+    const confidenceClass = confidence > 0.8 ? 'confidence-high' : 
+                           confidence > 0.5 ? 'confidence-medium' : 
+                           'confidence-low';
+    
+    transcriptItem.innerHTML = `
+        <span>${transcript}</span>
+        <span class="confidence-badge ${confidenceClass}">
+            ${Math.round(confidence * 100)}%
+        </span>
+        ${is_final ? '<span class="badge bg-success ms-2">Final</span>' : ''}
+    `;
+    
+    transcriptContainer.appendChild(transcriptItem);
+    transcriptContainer.scrollTop = transcriptContainer.scrollHeight;
+}
+
+// Start recording
 async function startRecording() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -21,137 +73,70 @@ async function startRecording() {
             mimeType: 'audio/webm;codecs=opus'
         });
         
-        mediaRecorder.ondataavailable = async (event) => {
+        mediaRecorder.ondataavailable = (event) => {
             if (event.data.size > 0) {
-                chunkCounter++;
-                try {
-                    // Convert blob to array buffer
-                    const arrayBuffer = await event.data.arrayBuffer();
-                    // Convert to base64
-                    const base64Audio = btoa(
-                        new Uint8Array(arrayBuffer)
-                            .reduce((data, byte) => data + String.fromCharCode(byte), '')
-                    );
-
-                    // Send chunk to server
-                    await sendAudioChunk(base64Audio, chunkCounter);
-                    
-                    updateChunkInfo(true);
-                } catch (error) {
-                    console.error('Error processing chunk:', error);
-                    failedChunks.push({
-                        chunk: event.data,
-                        index: chunkCounter
-                    });
-                    updateChunkInfo(true, true);
-                }
+                ws.send(event.data);
+                updateChunkInfo(event.data.size);
             }
         };
-
-        mediaRecorder.start(1000); // 1 second chunks
+        
+        mediaRecorder.start(100); // Send chunks every 100ms
         isRecording = true;
-        updateUI(true);
-        updateChunkInfo(true);
-    } catch (err) {
-        console.error('Error accessing microphone:', err);
+        
+        // Update UI
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        statusIndicator.className = 'status-indicator status-recording';
+        statusText.textContent = 'Recording...';
+        transcriptContainer.innerHTML = '';
+        
+        // Connect WebSocket if not already connected
+        if (!ws || ws.readyState !== WebSocket.OPEN) {
+            connectWebSocket();
+        }
+    } catch (error) {
+        console.error('Error starting recording:', error);
         alert('Error accessing microphone. Please ensure you have granted microphone permissions.');
     }
 }
 
-async function sendAudioChunk(base64Audio, chunkIndex) {
-    try {
-        // Log the request data
-        console.log(`Sending chunk ${chunkIndex}...`);
-        
-        const response = await fetch('/transcribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                audio: base64Audio,
-                chunk_index: chunkIndex,
-                audio_mime_type: 'audio/webm;codecs=opus'
-            })
-        });
-
-        // Log the response status
-        console.log(`Response status for chunk ${chunkIndex}:`, response.status);
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`Error response for chunk ${chunkIndex}:`, errorText);
-            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-        }
-
-        const result = await response.json();
-        console.log(`Chunk ${chunkIndex} processed successfully:`, result);
-        
-        if (result.transcript) {
-            addTranscript(result.transcript, result.confidence);
-        } else {
-            console.warn(`No transcript in response for chunk ${chunkIndex}:`, result);
-        }
-    } catch (error) {
-        console.error(`Error processing chunk ${chunkIndex}:`, error);
-        failedChunks.push({
-            index: chunkIndex,
-            error: error.message
-        });
-        updateChunkInfo(true, true);
-        throw error;
-    }
-}
-
-function addTranscript(text, confidence) {
-    // Remove the placeholder text if it exists
-    if (transcriptContainer.querySelector('.text-muted')) {
-        transcriptContainer.innerHTML = '';
-    }
-
-    const transcriptItem = document.createElement('div');
-    transcriptItem.className = 'transcript-item';
-    
-    // Add confidence badge
-    const confidenceClass = getConfidenceClass(confidence);
-    transcriptItem.innerHTML = `
-        ${text}
-        <span class="confidence-badge ${confidenceClass}">
-            ${(confidence * 100).toFixed(1)}% confidence
-        </span>
-    `;
-    
-    transcriptContainer.appendChild(transcriptItem);
-    transcriptContainer.scrollTop = transcriptContainer.scrollHeight;
-}
-
-function getConfidenceClass(confidence) {
-    if (confidence >= 0.8) return 'confidence-high';
-    if (confidence >= 0.5) return 'confidence-medium';
-    return 'confidence-low';
-}
-
-function updateChunkInfo(isRecording, hasError = false) {
-    const status = isRecording ? 'Recording in progress' : 'Not recording';
-    const errorInfo = hasError ? `\nFailed chunks: ${failedChunks.length}` : '';
-    chunkInfo.innerHTML = `<p>${status}${errorInfo}</p>`;
-}
-
-function updateUI(isRecording) {
-    startBtn.disabled = isRecording;
-    stopBtn.disabled = !isRecording;
-    statusIndicator.className = `status-indicator ${isRecording ? 'status-recording' : 'status-stopped'}`;
-    statusText.textContent = isRecording ? 'Recording' : 'Not Recording';
-}
-
+// Stop recording
 function stopRecording() {
     if (mediaRecorder && isRecording) {
         mediaRecorder.stop();
-        isRecording = false;
-        updateUI(false);
-        updateChunkInfo(false);
-        
-        // Stop all tracks in the stream
         mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        isRecording = false;
+        
+        // Update UI
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+        statusIndicator.className = 'status-indicator status-stopped';
+        statusText.textContent = 'Not Recording';
+        chunkInfo.innerHTML = '<p>No recording in progress</p>';
+        
+        // Close WebSocket
+        if (ws) {
+            ws.close();
+        }
     }
-} 
+}
+
+// Update chunk information
+function updateChunkInfo(size) {
+    const sizeKB = (size / 1024).toFixed(2);
+    chunkInfo.innerHTML = `
+        <p>Last chunk size: ${sizeKB} KB</p>
+        <p>Status: Recording in progress</p>
+    `;
+}
+
+// Event listeners
+startBtn.addEventListener('click', startRecording);
+stopBtn.addEventListener('click', stopRecording);
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (isRecording) {
+        stopRecording();
+    }
+}); 
