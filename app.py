@@ -75,10 +75,20 @@ def upload_image():
     try:
         logger.info('Received image upload request')
         
+        # Ensure the request contains JSON
+        if not request.is_json:
+            logger.error('Request content-type is not application/json')
+            return jsonify({'error': 'Content-Type must be application/json'}), 400
+
+        req_json = request.get_json()
+        if not req_json:
+            logger.error('No JSON body found in request')
+            return jsonify({'error': 'No JSON body found'}), 400
+
         # Get the image data from the request
-        image_data = request.json.get('image')
+        image_data = req_json.get('image')
         # Get the optional text data from the request
-        optional_text = request.json.get('text', '') # Get optional text, default to empty string
+        optional_text = req_json.get('text', '') # Get optional text, default to empty string
         
         if not image_data:
             logger.error('No image data provided in request')
@@ -128,44 +138,31 @@ def transcribe():
     try:
         data = request.json
         if not data or 'audio' not in data:
-            logger.error('No audio data provided in request')
             return jsonify({'error': 'No audio data provided'}), 400
 
-        # Get chunk size from request or use default
         chunk_size = data.get('chunk_size', CHUNK_SIZES['medium'])
         chunk_index = data.get('chunk_index', 0)
         audio_mime_type = data.get('audio_mime_type', 'audio/webm;codecs=opus')
-        
-        # Log chunk information
-        logger.info(f'Processing chunk {chunk_index} with size {chunk_size}s')
-        
-        # Decode base64 audio
-        # try:
-        #     audio_bytes = base64.b64decode(data['audio'])
-        #     logger.info(f'Successfully decoded audio chunk {chunk_index} (size: {len(audio_bytes)} bytes)')
-        # except Exception as e:
-        #     logger.error(f'Error decoding audio chunk {chunk_index}: {str(e)}')
-        #     return jsonify({'error': 'Invalid audio data format'}), 400
 
-        audio_data = data['audio']
-        # Prepare request for FastAPI endpoint
+        # Decode audio from base64
+        try:
+            audio_bytes = base64.b64decode(data['audio'])
+        except Exception as e:
+            return jsonify({'error': 'Invalid base64 audio'}), 400
+
+        # Prepare request to FastAPI
         transcribe_request = {
-            'audio_content': audio_data,  # Convert bytes to hex string for JSON
+            'audio_content': audio_bytes.decode('latin1'),
             'audio_mime_type': audio_mime_type
         }
 
-        # Send to FastAPI endpoint
         try:
-            logger.info(f'Sending chunk {chunk_index} to transcription service')
             response = requests.post(
                 f"{API_BASE_URL}/api/v1/transcribe/transcribe",
                 json=transcribe_request
             )
             response.raise_for_status()
-            
             result = response.json()
-            logger.info(f'Successfully transcribed chunk {chunk_index}: {result}')
-            
             return jsonify({
                 'status': 'success',
                 'chunk_index': chunk_index,
@@ -173,15 +170,10 @@ def transcribe():
                 'transcript': result.get('transcript', ''),
                 'confidence': result.get('confidence', 0.0)
             })
-
         except requests.exceptions.RequestException as e:
-            logger.error(f'Error calling transcription service for chunk {chunk_index}: {str(e)}')
-            if hasattr(e.response, 'text'):
-                logger.error(f'Response text: {e.response.text}')
             return jsonify({'error': 'Transcription service error'}), 500
 
     except Exception as e:
-        logger.error(f'Error in transcription: {str(e)}', exc_info=True)
         return jsonify({'error': str(e)}), 500
 
 if __name__ == "__main__":

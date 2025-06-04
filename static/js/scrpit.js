@@ -1,7 +1,7 @@
 let ws;
 let audioContext;
 let isRecording = false;
-let scriptNode;
+let pcmNode;
 let stream;
 
 const startBtn = document.getElementById('startBtn');
@@ -11,28 +11,19 @@ const statusText = document.getElementById('statusText');
 const chunkInfo = document.getElementById('chunkInfo');
 const transcriptContainer = document.getElementById('transcriptContainer');
 
-const backend_url = "ws://localhost:8000";  // Note: WebSocket uses ws:// not http://
+const backend_url = "ws://localhost:8000";  // Ensure WS path
 
 function connectWebSocket() {
     const wsUrl = `${backend_url}/api/v1/transcribe_ws/stream`;
     ws = new WebSocket(wsUrl);
-
     ws.binaryType = 'arraybuffer';
 
-    ws.onopen = () => {
-        console.log("✅ WebSocket connected.");
-    };
-
-    ws.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        displayTranscript(data);
-    };
-
+    ws.onopen = () => console.log("✅ WebSocket connected.");
+    ws.onmessage = (event) => displayTranscript(JSON.parse(event.data));
     ws.onclose = () => {
         console.log("🔌 WebSocket disconnected.");
         stopRecording();
     };
-
     ws.onerror = (error) => {
         console.error("❌ WebSocket error:", error);
         stopRecording();
@@ -69,37 +60,31 @@ async function startRecording() {
             connectWebSocket();
         }
 
-        // Wait for WS to open
-        const waitForOpen = () => new Promise((resolve) => {
-            if (ws.readyState === WebSocket.OPEN) return resolve();
-            ws.addEventListener("open", resolve);
-        });
-        await waitForOpen();
+        await waitForSocketConnection();
 
         audioContext = new AudioContext({ sampleRate: 48000 });
-        const source = audioContext.createMediaStreamSource(stream);
+        await audioContext.audioWorklet.addModule('pcm-processor.js');
+        pcmNode = new AudioWorkletNode(audioContext, 'pcm-processor');
 
-        scriptNode = audioContext.createScriptProcessor(4096, 1, 1);
-
-        scriptNode.onaudioprocess = (event) => {
-            const input = event.inputBuffer.getChannelData(0); // mono
-            const pcmChunk = float32ToInt16(input);
-            ws.send(pcmChunk);
-            updateChunkInfo(pcmChunk.length);
+        pcmNode.port.onmessage = (event) => {
+            const chunk = event.data;
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(chunk);
+                updateChunkInfo(chunk.byteLength);
+            }
         };
 
-        source.connect(scriptNode);
-        scriptNode.connect(audioContext.destination);
+        const source = audioContext.createMediaStreamSource(stream);
+        source.connect(pcmNode);
 
         isRecording = true;
 
-        // Update UI
+        // UI Update
         startBtn.disabled = true;
         stopBtn.disabled = false;
         statusIndicator.className = 'status-indicator status-recording';
         statusText.textContent = 'Recording...';
         transcriptContainer.innerHTML = '';
-
     } catch (error) {
         console.error("🎤 Microphone access error:", error);
         alert("Failed to access microphone.");
@@ -109,8 +94,7 @@ async function startRecording() {
 function stopRecording() {
     if (isRecording) {
         isRecording = false;
-
-        if (scriptNode) scriptNode.disconnect();
+        if (pcmNode) pcmNode.disconnect();
         if (audioContext) audioContext.close();
         if (stream) stream.getTracks().forEach(t => t.stop());
 
@@ -126,13 +110,11 @@ function stopRecording() {
     }
 }
 
-function float32ToInt16(float32Array) {
-    const int16Array = new Int16Array(float32Array.length);
-    for (let i = 0; i < float32Array.length; i++) {
-        const s = Math.max(-1, Math.min(1, float32Array[i]));
-        int16Array[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
-    }
-    return new Uint8Array(int16Array.buffer); // Convert to bytes for WebSocket
+function waitForSocketConnection() {
+    return new Promise(resolve => {
+        if (ws.readyState === WebSocket.OPEN) return resolve();
+        ws.addEventListener("open", resolve);
+    });
 }
 
 function updateChunkInfo(length) {
@@ -145,5 +127,4 @@ function updateChunkInfo(length) {
 
 startBtn.addEventListener('click', startRecording);
 stopBtn.addEventListener('click', stopRecording);
-
 window.addEventListener('beforeunload', stopRecording);
