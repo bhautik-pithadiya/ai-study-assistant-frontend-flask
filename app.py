@@ -23,7 +23,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
 
 # Change the API_BASE_URL to be configurable
-API_BASE_URL = os.getenv('API_BASE_URL', 'http://0.0.0.0:8000')
+API_BASE_URL = os.getenv('API_BASE_URL', 'http://34.56.58.243:8000')
 
 @app.route('/')
 def index():
