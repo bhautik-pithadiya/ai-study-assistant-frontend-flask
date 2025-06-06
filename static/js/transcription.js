@@ -1,8 +1,9 @@
+// Revised WebSocket-based Audio Recorder (5-second chunking)
 let ws;
 let audioContext;
-let isRecording = false;
-let scriptNode;
+let mediaRecorder;
 let stream;
+let isRecording = false;
 
 const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
@@ -11,22 +12,16 @@ const statusText = document.getElementById('statusText');
 const chunkInfo = document.getElementById('chunkInfo');
 const transcriptContainer = document.getElementById('transcriptContainer');
 
-const backend_url = "ws://localhost:8000";  // Note: WebSocket uses ws:// not http://
+const backend_url = "ws://localhost:8000";
 
 function connectWebSocket() {
     const wsUrl = `${backend_url}/api/v1/transcribe_ws/stream`;
     ws = new WebSocket(wsUrl);
-
     ws.binaryType = 'arraybuffer';
 
-    ws.onopen = () => {
-        console.log("✅ WebSocket connected.");
-    };
+    ws.onopen = () => console.log("✅ WebSocket connected.");
 
-    ws.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        displayTranscript(data);
-    };
+    ws.onmessage = (event) => displayTranscript(JSON.parse(event.data));
 
     ws.onclose = () => {
         console.log("🔌 WebSocket disconnected.");
@@ -39,15 +34,12 @@ function connectWebSocket() {
     };
 }
 
-function displayTranscript(data) {
-    const { transcript, confidence, is_final } = data;
-
+function displayTranscript({ transcript, confidence, is_final }) {
     const transcriptItem = document.createElement('div');
     transcriptItem.className = 'transcript-item';
 
     const confidenceClass = confidence > 0.8 ? 'confidence-high' :
-                            confidence > 0.5 ? 'confidence-medium' :
-                            'confidence-low';
+                            confidence > 0.5 ? 'confidence-medium' : 'confidence-low';
 
     transcriptItem.innerHTML = `
         <span>${transcript}</span>
@@ -69,31 +61,25 @@ async function startRecording() {
             connectWebSocket();
         }
 
-        // Wait for WS to open
-        const waitForOpen = () => new Promise((resolve) => {
-            if (ws.readyState === WebSocket.OPEN) return resolve();
-            ws.addEventListener("open", resolve);
+        await new Promise(resolve => {
+            if (ws.readyState === WebSocket.OPEN) resolve();
+            else ws.addEventListener("open", resolve);
         });
-        await waitForOpen();
 
-        audioContext = new AudioContext({ sampleRate: 48000 });
-        const source = audioContext.createMediaStreamSource(stream);
+        mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' });
 
-        scriptNode = audioContext.createScriptProcessor(4096, 1, 1);
-
-        scriptNode.onaudioprocess = (event) => {
-            const input = event.inputBuffer.getChannelData(0); // mono
-            const pcmChunk = float32ToInt16(input);
-            ws.send(pcmChunk);
-            updateChunkInfo(pcmChunk.length);
+        mediaRecorder.ondataavailable = event => {
+            if (event.data.size > 0 && ws.readyState === WebSocket.OPEN) {
+                event.data.arrayBuffer().then(buffer => {
+                    ws.send(buffer);
+                    updateChunkInfo((buffer.byteLength / 1024).toFixed(2));
+                });
+            }
         };
 
-        source.connect(scriptNode);
-        scriptNode.connect(audioContext.destination);
+        mediaRecorder.start(5000); // chunk every 5 seconds
 
         isRecording = true;
-
-        // Update UI
         startBtn.disabled = true;
         stopBtn.disabled = false;
         statusIndicator.className = 'status-indicator status-recording';
@@ -109,34 +95,19 @@ async function startRecording() {
 function stopRecording() {
     if (isRecording) {
         isRecording = false;
-
-        if (scriptNode) scriptNode.disconnect();
-        if (audioContext) audioContext.close();
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
         if (stream) stream.getTracks().forEach(t => t.stop());
+        if (ws && ws.readyState === WebSocket.OPEN) ws.close();
 
         startBtn.disabled = false;
         stopBtn.disabled = true;
         statusIndicator.className = 'status-indicator status-stopped';
         statusText.textContent = 'Not Recording';
         chunkInfo.innerHTML = '<p>No recording in progress</p>';
-
-        if (ws && ws.readyState === WebSocket.OPEN) {
-            ws.close();
-        }
     }
 }
 
-function float32ToInt16(float32Array) {
-    const int16Array = new Int16Array(float32Array.length);
-    for (let i = 0; i < float32Array.length; i++) {
-        const s = Math.max(-1, Math.min(1, float32Array[i]));
-        int16Array[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
-    }
-    return new Uint8Array(int16Array.buffer); // Convert to bytes for WebSocket
-}
-
-function updateChunkInfo(length) {
-    const kbSize = (length / 1024).toFixed(2);
+function updateChunkInfo(kbSize) {
     chunkInfo.innerHTML = `
         <p>Last PCM chunk: ${kbSize} KB</p>
         <p>Status: Recording</p>
@@ -145,5 +116,4 @@ function updateChunkInfo(length) {
 
 startBtn.addEventListener('click', startRecording);
 stopBtn.addEventListener('click', stopRecording);
-
 window.addEventListener('beforeunload', stopRecording);
