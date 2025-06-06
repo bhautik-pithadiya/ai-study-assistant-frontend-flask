@@ -20,8 +20,11 @@ function connectWebSocket() {
 
     ws.onopen = () => console.log("✅ WebSocket connected.");
     ws.onmessage = (event) => displayTranscript(JSON.parse(event.data));
-    ws.onclose = () => {
-        console.log("🔌 WebSocket disconnected.");
+    ws.onclose = (event) => {
+        console.log("🔌 WebSocket disconnected.", event);
+        if (event) {
+            console.log(`WebSocket closed: code=${event.code}, reason=${event.reason}, wasClean=${event.wasClean}`);
+        }
         stopRecording();
     };
     ws.onerror = (error) => {
@@ -32,6 +35,9 @@ function connectWebSocket() {
 
 function displayTranscript(data) {
     const { transcript, confidence, is_final } = data;
+
+    // Only display if confidence is greater than zero
+    if (!confidence || confidence === 0) return;
 
     const transcriptItem = document.createElement('div');
     transcriptItem.className = 'transcript-item';
@@ -52,6 +58,9 @@ function displayTranscript(data) {
     transcriptContainer.scrollTop = transcriptContainer.scrollHeight;
 }
 
+let pcmBuffer = [];
+const PCM_CHUNK_SIZE = 48000; // 1 second at 48kHz
+
 async function startRecording() {
     try {
         stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -63,14 +72,22 @@ async function startRecording() {
         await waitForSocketConnection();
 
         audioContext = new AudioContext({ sampleRate: 48000 });
-        await audioContext.audioWorklet.addModule('pcm-processor.js');
+        await audioContext.audioWorklet.addModule('static/js/pcm_processor.js');
         pcmNode = new AudioWorkletNode(audioContext, 'pcm-processor');
 
         pcmNode.port.onmessage = (event) => {
-            const chunk = event.data;
-            if (ws && ws.readyState === WebSocket.OPEN) {
-                ws.send(chunk);
-                updateChunkInfo(chunk.byteLength);
+            const chunk = new Int16Array(event.data);
+            pcmBuffer.push(...chunk);
+
+            // If we've collected 1 second of audio, send it
+            while (pcmBuffer.length >= PCM_CHUNK_SIZE) {
+                const oneSecChunk = pcmBuffer.slice(0, PCM_CHUNK_SIZE);
+                pcmBuffer = pcmBuffer.slice(PCM_CHUNK_SIZE);
+
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(Int16Array.from(oneSecChunk).buffer);
+                    updateChunkInfo(oneSecChunk.length * 2); // 2 bytes per sample
+                }
             }
         };
 
@@ -97,6 +114,13 @@ function stopRecording() {
         if (pcmNode) pcmNode.disconnect();
         if (audioContext) audioContext.close();
         if (stream) stream.getTracks().forEach(t => t.stop());
+
+        // Send any remaining buffered audio
+        if (pcmBuffer.length > 0 && ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(Int16Array.from(pcmBuffer).buffer);
+            updateChunkInfo(pcmBuffer.length * 2);
+            pcmBuffer = [];
+        }
 
         startBtn.disabled = false;
         stopBtn.disabled = true;
